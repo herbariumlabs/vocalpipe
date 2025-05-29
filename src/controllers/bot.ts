@@ -51,12 +51,16 @@ export class BotController {
         this.bot.action("input_assamese", (ctx) =>
             this.handleInputAssamese(ctx)
         );
+        this.bot.action("input_punjabi", (ctx) => this.handleInputPunjabi(ctx));
         this.bot.action("output_hindi", (ctx) => this.handleOutputHindi(ctx));
         this.bot.action("output_english", (ctx) =>
             this.handleOutputEnglish(ctx)
         );
         this.bot.action("output_assamese", (ctx) =>
             this.handleOutputAssamese(ctx)
+        );
+        this.bot.action("output_punjabi", (ctx) =>
+            this.handleOutputPunjabi(ctx)
         );
         this.bot.action("view_settings", (ctx) => this.handleViewSettings(ctx));
         this.bot.action("back_to_main", (ctx) => this.handleBackToMain(ctx));
@@ -77,22 +81,15 @@ export class BotController {
         });
 
         await ctx.reply(
-            "🎙️ Welcome to VocalPipe - Ultimate Voice & Text AI Bot!\n\n" +
+            "Welcome to Herbarium!\n\n" +
                 "🗣️ Send me a voice message OR type a text message and I will respond with AI-generated audio!\n\n" +
                 "🌐 Default: Hindi Input → Hindi Output\n" +
                 "Use /change_language to customize both input and output languages.\n\n" +
-                "📝 Available input methods:\n" +
-                "• 🎤 Voice messages in your selected language\n" +
-                "• ⌨️ Text messages in your selected language\n\n" +
-                "🔊 Available workflows:\n" +
-                "• 🇮🇳→🇮🇳 Hindi Text/Voice → GPT → Hindi Voice\n" +
-                "• 🇺🇸→🇺🇸 English Text/Voice → GPT → English Voice\n" +
-                "• 🇮🇳→🇺🇸 Hindi Text/Voice → GPT → English Voice\n" +
-                "• 🇺🇸→🇮🇳 English Text/Voice → GPT → Hindi Voice\n" +
-                "• 🇮🇳→🇮🇳 Assamese Text/Voice → GPT → Assamese Voice\n" +
-                "• 🇮🇳→🇺🇸 Assamese Text/Voice → GPT → English Voice\n" +
-                "• 🇺🇸→🇮🇳 English Text/Voice → GPT → Assamese Voice\n" +
-                "• 🇮🇳→🇮🇳 Hindi Text/Voice → GPT → Assamese Voice"
+                "🔊 Available languages:\n" +
+                "• 🇮🇳 Hindi\n" +
+                "• 🇺🇸 English\n" +
+                "• 🇮🇳 Assamese\n" +
+                "• 🇮🇳 Punjabi\n\n"
         );
     }
 
@@ -138,6 +135,10 @@ export class BotController {
                         text: "🇮🇳 Assamese Input",
                         callback_data: "input_assamese",
                     },
+                    {
+                        text: "🇮🇳 Punjabi Input",
+                        callback_data: "input_punjabi",
+                    },
                 ],
                 [{ text: "⬅️ Back", callback_data: "back_to_main" }],
             ],
@@ -162,6 +163,10 @@ export class BotController {
                     {
                         text: "🇮🇳 Assamese Output",
                         callback_data: "output_assamese",
+                    },
+                    {
+                        text: "🇮🇳 Punjabi Output",
+                        callback_data: "output_punjabi",
                     },
                 ],
                 [{ text: "⬅️ Back", callback_data: "back_to_main" }],
@@ -221,6 +226,22 @@ export class BotController {
         );
     }
 
+    private async handleInputPunjabi(ctx: Context): Promise<void> {
+        const userId = ctx.from?.id;
+        if (!userId) return;
+
+        this.userStateService.setInputLanguage(userId, "punjabi");
+        await ctx.answerCbQuery();
+
+        const settings = this.userStateService.getUserSettings(userId);
+        const { inputFlag, outputFlag } =
+            this.userStateService.getLanguageFlags(settings);
+
+        await ctx.editMessageText(
+            `✅ Input language set to Punjabi! 🇮🇳\nYou can now send voice messages or text in Punjabi.\n\n📋 Current Configuration:\nInput: ${inputFlag} ${settings.input.charAt(0).toUpperCase() + settings.input.slice(1)}\nOutput: ${outputFlag} ${settings.output.charAt(0).toUpperCase() + settings.output.slice(1)}\n\nUse /change_language to modify other settings.`
+        );
+    }
+
     private async handleOutputHindi(ctx: Context): Promise<void> {
         const userId = ctx.from?.id;
         if (!userId) return;
@@ -266,6 +287,22 @@ export class BotController {
 
         await ctx.editMessageText(
             `✅ Output language set to Assamese! 🇮🇳\n\n📋 Current Configuration:\nInput: ${inputFlag} ${settings.input.charAt(0).toUpperCase() + settings.input.slice(1)}\nOutput: ${outputFlag} ${settings.output.charAt(0).toUpperCase() + settings.output.slice(1)}\n\nUse /change_language to modify other settings.`
+        );
+    }
+
+    private async handleOutputPunjabi(ctx: Context): Promise<void> {
+        const userId = ctx.from?.id;
+        if (!userId) return;
+
+        this.userStateService.setOutputLanguage(userId, "punjabi");
+        await ctx.answerCbQuery();
+
+        const settings = this.userStateService.getUserSettings(userId);
+        const { inputFlag, outputFlag } =
+            this.userStateService.getLanguageFlags(settings);
+
+        await ctx.editMessageText(
+            `✅ Output language set to Punjabi! 🇮🇳\n\n📋 Current Configuration:\nInput: ${inputFlag} ${settings.input.charAt(0).toUpperCase() + settings.input.slice(1)}\nOutput: ${outputFlag} ${settings.output.charAt(0).toUpperCase() + settings.output.slice(1)}\n\nUse /change_language to modify other settings.`
         );
     }
 
@@ -356,14 +393,28 @@ export class BotController {
 
         const fileLink = await ctx.telegram.getFileLink(fileId);
 
+        // Show thinking message for voice processing
+        const settings = this.userStateService.getUserSettings(userId);
+        const { inputFlag, outputFlag } =
+            this.userStateService.getLanguageFlags(settings);
+        const inputIcon = "🎤";
+
+        const thinkingMessage = await ctx.reply("💬 Thinking...");
+
         try {
             const result = await this.processorService.processVoiceMessage(
                 userId,
                 fileLink.href
             );
             await this.sendAudioResponse(ctx, userId, result, "voice");
+            await ctx.deleteMessage(thinkingMessage.message_id);
         } catch (error) {
             console.error("Voice processing error:", error);
+            try {
+                await ctx.deleteMessage(thinkingMessage.message_id);
+            } catch (deleteErr) {
+                console.error("Failed to delete thinking message:", deleteErr);
+            }
             await ctx.reply(
                 "Something went wrong processing your voice message."
             );
@@ -429,10 +480,21 @@ export class BotController {
                 " Output: " +
                 result.outputText;
 
-            await ctx.replyWithVoice(
-                { source: createReadStream(oggPath) },
-                { caption }
-            );
+            // Telegram caption limit is 1024 characters
+            const maxCaptionLength = 1024;
+
+            if (caption.length <= maxCaptionLength) {
+                await ctx.replyWithVoice(
+                    { source: createReadStream(oggPath) },
+                    { caption }
+                );
+            } else {
+                // Send without caption if too long
+                await ctx.replyWithVoice({ source: createReadStream(oggPath) });
+
+                // Send the caption as a separate text message
+                await ctx.reply(`📝 Response Details:\n\n${caption}`);
+            }
         } finally {
             cleanupFiles([oggPath]);
         }
