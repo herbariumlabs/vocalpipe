@@ -1,32 +1,59 @@
-import { UserLanguageSettings } from '../types';
+import { UserLanguageSettings } from "../types";
 
 export class UserStateService {
-  private userLanguages = new Map<number, UserLanguageSettings>();
+    private userLanguages = new Map<number, UserLanguageSettings>();
 
-  getUserSettings(userId: number): UserLanguageSettings {
-    return this.userLanguages.get(userId) || { input: 'hindi', output: 'hindi' };
-  }
+    getUserSettings(userId: number): UserLanguageSettings {
+        return (
+            this.userLanguages.get(userId) || {
+                input: "hindi",
+                output: "hindi",
+            }
+        );
+    }
 
-  setUserSettings(userId: number, settings: UserLanguageSettings): void {
-    this.userLanguages.set(userId, settings);
-  }
+    setUserSettings(userId: number, settings: UserLanguageSettings): void {
+        this.userLanguages.set(userId, settings);
+    }
 
-  setInputLanguage(userId: number, language: 'hindi' | 'english'): void {
-    const currentSettings = this.getUserSettings(userId);
-    currentSettings.input = language;
-    this.setUserSettings(userId, currentSettings);
-  }
+    setInputLanguage(
+        userId: number,
+        language: "hindi" | "english" | "assamese"
+    ): void {
+        const currentSettings = this.getUserSettings(userId);
+        currentSettings.input = language;
+        this.setUserSettings(userId, currentSettings);
+    }
 
-  setOutputLanguage(userId: number, language: 'hindi' | 'english'): void {
-    const currentSettings = this.getUserSettings(userId);
-    currentSettings.output = language;
-    this.setUserSettings(userId, currentSettings);
-  }
+    setOutputLanguage(
+        userId: number,
+        language: "hindi" | "english" | "assamese"
+    ): void {
+        const currentSettings = this.getUserSettings(userId);
+        currentSettings.output = language;
+        this.setUserSettings(userId, currentSettings);
+    }
 
-  getLanguageFlags(settings: UserLanguageSettings): { inputFlag: string; outputFlag: string } {
-    return {
-      inputFlag: settings.input === 'hindi' ? '🇮🇳' : '🇺🇸',
-      outputFlag: settings.output === 'hindi' ? '🇮🇳' : '🇺🇸',
-    };
-  }
+    getLanguageFlags(settings: UserLanguageSettings): {
+        inputFlag: string;
+        outputFlag: string;
+    } {
+        const getFlag = (language: string): string => {
+            switch (language) {
+                case "hindi":
+                    return "🇮🇳";
+                case "assamese":
+                    return "🇮🇳"; // Using India flag for Assamese as well
+                case "english":
+                    return "🇺🇸";
+                default:
+                    return "🇺🇸";
+            }
+        };
+
+        return {
+            inputFlag: getFlag(settings.input),
+            outputFlag: getFlag(settings.output),
+        };
+    }
 }
