@@ -1,6 +1,6 @@
 export interface UserLanguageSettings {
-    input: "hindi" | "english" | "assamese";
-    output: "hindi" | "english" | "assamese";
+    input: "hindi" | "english" | "assamese" | "punjabi";
+    output: "hindi" | "english" | "assamese" | "punjabi";
 }
 
 export interface BhashiniASRRequest {
@@ -71,7 +71,7 @@ export interface ProcessingResult {
 }
 
 export type InputType = "text" | "voice";
-export type Language = "hindi" | "english" | "assamese";
+export type Language = "hindi" | "english" | "assamese" | "punjabi";
 
 export interface AppConfig {
     telegramBotToken: string;
