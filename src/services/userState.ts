@@ -18,7 +18,7 @@ export class UserStateService {
 
     setInputLanguage(
         userId: number,
-        language: "hindi" | "english" | "assamese"
+        language: "hindi" | "english" | "assamese" | "punjabi"
     ): void {
         const currentSettings = this.getUserSettings(userId);
         currentSettings.input = language;
@@ -27,7 +27,7 @@ export class UserStateService {
 
     setOutputLanguage(
         userId: number,
-        language: "hindi" | "english" | "assamese"
+        language: "hindi" | "english" | "assamese" | "punjabi"
     ): void {
         const currentSettings = this.getUserSettings(userId);
         currentSettings.output = language;
@@ -44,6 +44,8 @@ export class UserStateService {
                     return "🇮🇳";
                 case "assamese":
                     return "🇮🇳"; // Using India flag for Assamese as well
+                case "punjabi":
+                    return "🇮🇳"; // Using India flag for Punjabi as well
                 case "english":
                     return "🇺🇸";
                 default:

@@ -16,6 +16,8 @@ export class BhashiniService {
                 return "hi";
             case "assamese":
                 return "as";
+            case "punjabi":
+                return "pa";
             case "english":
                 return "en";
             default:
@@ -29,6 +31,8 @@ export class BhashiniService {
                 return "Deva";
             case "assamese":
                 return "Beng";
+            case "punjabi":
+                return "Guru";
             case "english":
                 return "Latn";
             default:
@@ -42,6 +46,8 @@ export class BhashiniService {
                 return "Bhashini/IITM/TTS";
             case "assamese":
                 return "Bhashini/IITM/TTS"; // Using same service for Assamese
+            case "punjabi":
+                return "Bhashini/IITM/TTS"; // Using same service for Punjabi
             case "english":
                 return "Bhashini/IITM/TTS"; // Fallback to Hindi TTS for English
             default:
@@ -63,6 +69,11 @@ export class BhashiniService {
             case "assamese":
                 serviceId = "bhashini/ai4bharat/conformer-multilingual-asr";
                 sourceLanguage = "as";
+                break;
+            case "punjabi":
+                serviceId =
+                    "ai4bharat/conformer-multilingual-indo_aryan-gpu--t4";
+                sourceLanguage = "pa";
                 break;
             case "english":
             default:

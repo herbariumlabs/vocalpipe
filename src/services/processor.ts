@@ -80,6 +80,13 @@ export class ProcessorService {
                 "english"
             );
             console.log("🔁 Assamese→EN:", inputText, "→", englishPrompt);
+        } else if (settings.input === "punjabi") {
+            englishPrompt = await this.bhashiniService.translateText(
+                inputText,
+                "punjabi",
+                "english"
+            );
+            console.log("🔁 Punjabi→EN:", inputText, "→", englishPrompt);
         } else {
             englishPrompt = inputText;
             console.log("🔁 EN Prompt:", englishPrompt);
@@ -115,6 +122,17 @@ export class ProcessorService {
             audioBase64 = await this.bhashiniService.textToSpeech(
                 finalText,
                 "assamese"
+            );
+        } else if (settings.output === "punjabi") {
+            finalText = await this.bhashiniService.translateText(
+                gptReply,
+                "english",
+                "punjabi"
+            );
+            console.log("📝 Punjabi Output:", finalText);
+            audioBase64 = await this.bhashiniService.textToSpeech(
+                finalText,
+                "punjabi"
             );
         } else {
             finalText = gptReply;
