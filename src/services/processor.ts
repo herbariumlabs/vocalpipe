@@ -17,16 +17,34 @@ import {
 import { InputType, ProcessingResult, UserLanguageSettings } from "../types";
 
 export class ProcessorService {
+    private initialized = false;
+
     constructor(
         private bhashiniService: BhashiniService,
         private openaiService: OpenAIService,
         private userStateService: UserStateService
     ) {}
 
+    async initialize(): Promise<void> {
+        if (this.initialized) return;
+
+        console.log("🔄 Initializing ProcessorService with RAG...");
+        await this.openaiService.initialize();
+        this.initialized = true;
+
+        // Log RAG statistics
+        const stats = this.openaiService.getRAGStats();
+        console.log(
+            `📊 RAG Stats: ${stats.totalDocuments} documents, ${stats.totalChunks} chunks`
+        );
+    }
+
     async processVoiceMessage(
         userId: number,
         fileLink: string
     ): Promise<ProcessingResult> {
+        await this.initialize();
+
         const settings = this.userStateService.getUserSettings(userId);
         const uid = generateUniqueId();
         const { ogaPath, wavPath } = generateFilePaths(uid);
@@ -62,6 +80,8 @@ export class ProcessorService {
         userId: number,
         inputText: string
     ): Promise<ProcessingResult> {
+        await this.initialize();
+
         const settings = this.userStateService.getUserSettings(userId);
 
         // Step 1: Translate to English if needed for GPT
@@ -92,7 +112,7 @@ export class ProcessorService {
             console.log("🔁 EN Prompt:", englishPrompt);
         }
 
-        // Step 2: Get GPT response
+        // Step 2: Get GPT response with RAG
         const gptReply =
             await this.openaiService.generateResponse(englishPrompt);
         console.log("🤖 GPT Output:", gptReply);
@@ -158,5 +178,15 @@ export class ProcessorService {
         } finally {
             cleanupFiles([wavPath]);
         }
+    }
+
+    // Method to add documents to the RAG system
+    async addDocument(content: string, source: string): Promise<void> {
+        await this.openaiService.addDocument(content, source);
+    }
+
+    // Method to get RAG system statistics
+    getRAGStats(): { totalDocuments: number; totalChunks: number } {
+        return this.openaiService.getRAGStats();
     }
 }
