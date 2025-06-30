@@ -31,44 +31,36 @@ export class BotController {
     }
 
     private setupHandlers(): void {
-        this.setupCommands();
-        this.setupCallbackQueries();
-        this.setupMessageHandlers();
+        this.bot.start(this.handleStart.bind(this));
+        this.bot.command(
+            "change_language",
+            this.handleChangeLanguage.bind(this)
+        );
+        this.bot.command("rag_stats", this.handleRAGStats.bind(this));
+        this.bot.on("callback_query", this.handleCallbackQuery.bind(this));
+        this.bot.on("voice", this.handleVoiceMessage.bind(this));
+        this.bot.on("text", this.handleTextMessage.bind(this));
+
+        this.bot.catch((err, ctx) => {
+            console.error("❌ Bot Error:", err);
+            ctx.reply("Sorry, I encountered an error. Please try again later.");
+        });
     }
 
-    private setupCommands(): void {
-        this.bot.start((ctx) => this.handleStart(ctx));
-        this.bot.command("change_language", (ctx) =>
-            this.handleChangeLanguage(ctx)
-        );
+    async launch(): Promise<void> {
+        try {
+            await this.processorService.initialize();
+
+            await this.bot.launch();
+            console.log("🤖 VocalPipe Bot is running!");
+        } catch (error) {
+            console.error("❌ Failed to launch bot:", error);
+            throw error;
+        }
     }
 
-    private setupCallbackQueries(): void {
-        this.bot.action("select_input", (ctx) => this.handleSelectInput(ctx));
-        this.bot.action("select_output", (ctx) => this.handleSelectOutput(ctx));
-        this.bot.action("input_hindi", (ctx) => this.handleInputHindi(ctx));
-        this.bot.action("input_english", (ctx) => this.handleInputEnglish(ctx));
-        this.bot.action("input_assamese", (ctx) =>
-            this.handleInputAssamese(ctx)
-        );
-        this.bot.action("input_punjabi", (ctx) => this.handleInputPunjabi(ctx));
-        this.bot.action("output_hindi", (ctx) => this.handleOutputHindi(ctx));
-        this.bot.action("output_english", (ctx) =>
-            this.handleOutputEnglish(ctx)
-        );
-        this.bot.action("output_assamese", (ctx) =>
-            this.handleOutputAssamese(ctx)
-        );
-        this.bot.action("output_punjabi", (ctx) =>
-            this.handleOutputPunjabi(ctx)
-        );
-        this.bot.action("view_settings", (ctx) => this.handleViewSettings(ctx));
-        this.bot.action("back_to_main", (ctx) => this.handleBackToMain(ctx));
-    }
-
-    private setupMessageHandlers(): void {
-        this.bot.on("text", (ctx) => this.handleTextMessage(ctx));
-        this.bot.on("voice", (ctx) => this.handleVoiceMessage(ctx));
+    stop(): void {
+        this.bot.stop();
     }
 
     private async handleStart(ctx: Context): Promise<void> {
@@ -80,11 +72,16 @@ export class BotController {
             output: "hindi",
         });
 
+        const ragStats = this.processorService.getRAGStats();
+
         await ctx.reply(
-            "Welcome to Herbarium!\n\n" +
+            "Welcome to Herbarium with RAG!\n\n" +
                 "🗣️ Send me a voice message OR type a text message and I will respond with AI-generated audio!\n\n" +
+                "📚 RAG System Active: I can now search through local documents to provide more accurate answers.\n\n" +
+                `📊 Knowledge Base: ${ragStats.totalDocuments} documents, ${ragStats.totalChunks} chunks\n\n` +
                 "🌐 Default: Hindi Input → Hindi Output\n" +
-                "Use /change_language to customize both input and output languages.\n\n" +
+                "Use /change_language to customize both input and output languages.\n" +
+                "Use /rag_stats to check the knowledge base status.\n\n" +
                 "🔊 Available languages:\n" +
                 "• 🇮🇳 Hindi\n" +
                 "• 🇺🇸 English\n" +
@@ -118,6 +115,81 @@ export class BotController {
         };
 
         await ctx.reply("🌐 Language Settings:", { reply_markup: keyboard });
+    }
+
+    private async handleRAGStats(ctx: Context): Promise<void> {
+        try {
+            const stats = this.processorService.getRAGStats();
+
+            await ctx.reply(
+                `📚 RAG Knowledge Base Statistics:\n\n` +
+                    `📄 Total Documents: ${stats.totalDocuments}\n` +
+                    `📝 Total Chunks: ${stats.totalChunks}\n\n` +
+                    `The system will search through these documents first before using general knowledge to answer your questions.`
+            );
+        } catch (error) {
+            console.error("❌ Error getting RAG stats:", error);
+            await ctx.reply(
+                "Sorry, I couldn't retrieve the knowledge base statistics."
+            );
+        }
+    }
+
+    private async handleCallbackQuery(ctx: Context): Promise<void> {
+        const query = ctx.callbackQuery;
+        if (!query || !("data" in query)) return;
+
+        const data = query.data;
+        if (!data) return;
+
+        await this.handleCallbackQueryData(ctx, data);
+    }
+
+    private async handleCallbackQueryData(
+        ctx: Context,
+        data: string
+    ): Promise<void> {
+        const userId = ctx.from?.id;
+        if (!userId) return;
+
+        switch (data) {
+            case "select_input":
+                await this.handleSelectInput(ctx);
+                break;
+            case "select_output":
+                await this.handleSelectOutput(ctx);
+                break;
+            case "input_hindi":
+                await this.handleInputHindi(ctx);
+                break;
+            case "input_english":
+                await this.handleInputEnglish(ctx);
+                break;
+            case "input_assamese":
+                await this.handleInputAssamese(ctx);
+                break;
+            case "input_punjabi":
+                await this.handleInputPunjabi(ctx);
+                break;
+            case "output_hindi":
+                await this.handleOutputHindi(ctx);
+                break;
+            case "output_english":
+                await this.handleOutputEnglish(ctx);
+                break;
+            case "output_assamese":
+                await this.handleOutputAssamese(ctx);
+                break;
+            case "output_punjabi":
+                await this.handleOutputPunjabi(ctx);
+                break;
+            case "view_settings":
+                await this.handleViewSettings(ctx);
+                break;
+            case "back_to_main":
+                await this.handleBackToMain(ctx);
+                break;
+        }
     }
 
     private async handleSelectInput(ctx: Context): Promise<void> {
@@ -498,14 +570,5 @@ export class BotController {
         } finally {
             cleanupFiles([oggPath]);
         }
-    }
-
-    public launch(): void {
-        this.bot.launch();
-        console.log("🎙️ VocalPipe Bot is running...");
-    }
-
-    public stop(): void {
-        this.bot.stop();
     }
 }
