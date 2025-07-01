@@ -12,6 +12,7 @@ Advanced multilingual voice and text AI bot with dual language support and RAG (
 - 📚 **RAG System**: Search local documents first, then fallback to general knowledge
 - 🔄 **Real-time Translation**: Seamless translation between Hindi and English
 - 📱 **Telegram Integration**: Easy-to-use Telegram bot interface
+- 📊 **Analytics**: Comprehensive PostHog analytics for user tracking and bot performance
 
 ## New RAG Capabilities
 
@@ -75,6 +76,11 @@ Edit `.env` file:
 ```env
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token_here
 OPENAI_API_KEY=your_openai_api_key_here
+
+# Optional: Analytics (PostHog)
+POSTHOG_API_KEY=your_posthog_api_key_here
+POSTHOG_HOST=https://us.i.posthog.com
+
 NODE_ENV=development
 ```
 
