@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import { BhashiniService } from "./bhashini";
 import { OpenAIService } from "./openai";
 import { UserStateService } from "./userState";
+import { AnalyticsService } from "./analytics";
 import {
     convertOgaToWav,
     convertWavToOgg,
@@ -22,7 +23,8 @@ export class ProcessorService {
     constructor(
         private bhashiniService: BhashiniService,
         private openaiService: OpenAIService,
-        private userStateService: UserStateService
+        private userStateService: UserStateService,
+        private analyticsService: AnalyticsService
     ) {}
 
     async initialize(): Promise<void> {
@@ -59,10 +61,12 @@ export class ProcessorService {
             const audioBase64 = readFileAsBase64(wavPath);
 
             // Speech-to-Text
+            const sttStartTime = Date.now();
             const recognizedText = await this.bhashiniService.speechToText(
                 audioBase64,
                 settings.input
             );
+            const sttTime = Date.now() - sttStartTime;
 
             console.log(
                 `🗣 ${settings.input.toUpperCase()} STT:`,
@@ -70,7 +74,21 @@ export class ProcessorService {
             );
 
             // Process through the same pipeline as text
-            return await this.processTextInput(userId, recognizedText);
+            const result = await this.processTextInput(userId, recognizedText);
+
+            // Track voice-specific analytics
+            await this.analyticsService.trackVoiceMessage({
+                userId,
+                inputType: "voice",
+                inputLanguage: settings.input,
+                outputLanguage: settings.output,
+                messageLength: recognizedText.length,
+                hasRAGContext: result.ragContext?.hasRAGContext || false,
+                ragDocumentsFound: result.ragContext?.documentsFound || 0,
+                processingTimeMs: sttTime + (result.ragContext ? 0 : 0), // STT time + processing time
+            });
+
+            return result;
         } finally {
             cleanupFiles([ogaPath, wavPath]);
         }
@@ -113,9 +131,15 @@ export class ProcessorService {
         }
 
         // Step 2: Get GPT response with RAG
-        const gptReply =
+        const startTime = Date.now();
+        const gptResult =
             await this.openaiService.generateResponse(englishPrompt);
-        console.log("🤖 GPT Output:", gptReply);
+        const processingTime = Date.now() - startTime;
+
+        console.log("🤖 GPT Output:", gptResult.response);
+        console.log(
+            `📊 RAG Context: ${gptResult.ragContext.documentsFound} docs found, hasRAG: ${gptResult.ragContext.hasRAGContext}`
+        );
 
         // Step 3: Translate and generate speech based on output language
         let finalText: string;
@@ -123,7 +147,7 @@ export class ProcessorService {
 
         if (settings.output === "hindi") {
             finalText = await this.bhashiniService.translateText(
-                gptReply,
+                gptResult.response,
                 "english",
                 "hindi"
             );
@@ -134,7 +158,7 @@ export class ProcessorService {
             );
         } else if (settings.output === "assamese") {
             finalText = await this.bhashiniService.translateText(
-                gptReply,
+                gptResult.response,
                 "english",
                 "assamese"
             );
@@ -145,7 +169,7 @@ export class ProcessorService {
             );
         } else if (settings.output === "punjabi") {
             finalText = await this.bhashiniService.translateText(
-                gptReply,
+                gptResult.response,
                 "english",
                 "punjabi"
             );
@@ -155,15 +179,28 @@ export class ProcessorService {
                 "punjabi"
             );
         } else {
-            finalText = gptReply;
+            finalText = gptResult.response;
             console.log("📝 English Output:", finalText);
             audioBase64 = await this.openaiService.textToSpeech(finalText);
         }
+
+        // Track analytics
+        await this.analyticsService.trackMessageProcessing({
+            userId,
+            inputType: "text",
+            inputLanguage: settings.input,
+            outputLanguage: settings.output,
+            messageLength: inputText.length,
+            hasRAGContext: gptResult.ragContext.hasRAGContext,
+            ragDocumentsFound: gptResult.ragContext.documentsFound,
+            processingTimeMs: processingTime,
+        });
 
         return {
             inputText,
             outputText: finalText,
             audioBase64,
+            ragContext: gptResult.ragContext,
         };
     }
 
