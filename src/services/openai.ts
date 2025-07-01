@@ -23,7 +23,13 @@ export class OpenAIService {
         await this.ragService.initialize();
     }
 
-    async generateResponse(prompt: string): Promise<string> {
+    async generateResponse(prompt: string): Promise<{
+        response: string;
+        ragContext: {
+            documentsFound: number;
+            hasRAGContext: boolean;
+        };
+    }> {
         try {
             // Step 1: Search for relevant documents using RAG
             const relevantDocs = await this.ragService.searchDocuments(
@@ -82,7 +88,13 @@ No relevant documents were found in the knowledge base for this query, so please
                 .toString()
                 .replace(/!/g, ".");
 
-            return cleanedResponse;
+            return {
+                response: cleanedResponse,
+                ragContext: {
+                    documentsFound: relevantDocs.length,
+                    hasRAGContext: relevantDocs.length > 0,
+                },
+            };
         } catch (error) {
             console.error("❌ LangChain OpenAI Error:", error);
             throw new Error("Failed to generate AI response");
