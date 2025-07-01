@@ -4,6 +4,7 @@ import { BhashiniService } from "../services/bhashini";
 import { OpenAIService } from "../services/openai";
 import { UserStateService } from "../services/userState";
 import { ProcessorService } from "../services/processor";
+import { AnalyticsService } from "../services/analytics";
 import { cleanupFiles, ensureDirectoryExists } from "../utils/file";
 import { config } from "../config";
 import { InputType } from "../types";
@@ -14,16 +15,19 @@ export class BotController {
     private openaiService: OpenAIService;
     private userStateService: UserStateService;
     private processorService: ProcessorService;
+    private analyticsService: AnalyticsService;
 
     constructor() {
         this.bot = new Telegraf(config.telegramBotToken);
         this.bhashiniService = new BhashiniService();
         this.openaiService = new OpenAIService();
         this.userStateService = new UserStateService();
+        this.analyticsService = new AnalyticsService();
         this.processorService = new ProcessorService(
             this.bhashiniService,
             this.openaiService,
-            this.userStateService
+            this.userStateService,
+            this.analyticsService
         );
 
         this.setupHandlers();
@@ -41,8 +45,18 @@ export class BotController {
         this.bot.on("voice", this.handleVoiceMessage.bind(this));
         this.bot.on("text", this.handleTextMessage.bind(this));
 
-        this.bot.catch((err, ctx) => {
+        this.bot.catch(async (err, ctx) => {
             console.error("❌ Bot Error:", err);
+
+            // Track error
+            await this.analyticsService.trackError({
+                ...this.analyticsService.createUserEvent(ctx),
+                errorType: "bot_error",
+                errorMessage:
+                    err instanceof Error ? err.message : "Unknown error",
+                context: "bot_catch_handler",
+            });
+
             ctx.reply("Sorry, I encountered an error. Please try again later.");
         });
     }
@@ -59,7 +73,8 @@ export class BotController {
         }
     }
 
-    stop(): void {
+    async stop(): Promise<void> {
+        await this.analyticsService.shutdown();
         this.bot.stop();
     }
 
@@ -73,6 +88,11 @@ export class BotController {
         });
 
         const ragStats = this.processorService.getRAGStats();
+
+        // Track bot start event
+        await this.analyticsService.trackBotStart(
+            this.analyticsService.createUserEvent(ctx)
+        );
 
         await ctx.reply(
             "Welcome to Herbarium with RAG!\n\n" +
@@ -121,6 +141,11 @@ export class BotController {
         try {
             const stats = this.processorService.getRAGStats();
 
+            // Track RAG stats view
+            await this.analyticsService.trackRAGStatsViewed(
+                this.analyticsService.createUserEvent(ctx)
+            );
+
             await ctx.reply(
                 `📚 RAG Knowledge Base Statistics:\n\n` +
                     `📄 Total Documents: ${stats.totalDocuments}\n` +
@@ -129,6 +154,16 @@ export class BotController {
             );
         } catch (error) {
             console.error("❌ Error getting RAG stats:", error);
+
+            // Track error
+            await this.analyticsService.trackError({
+                ...this.analyticsService.createUserEvent(ctx),
+                errorType: "rag_stats_error",
+                errorMessage:
+                    error instanceof Error ? error.message : "Unknown error",
+                context: "handleRAGStats",
+            });
+
             await ctx.reply(
                 "Sorry, I couldn't retrieve the knowledge base statistics."
             );
@@ -141,6 +176,12 @@ export class BotController {
 
         const data = query.data;
         if (!data) return;
+
+        // Track callback query
+        await this.analyticsService.trackCallbackQuery({
+            ...this.analyticsService.createUserEvent(ctx),
+            callbackData: data,
+        });
 
         await this.handleCallbackQueryData(ctx, data);
     }
@@ -254,12 +295,23 @@ export class BotController {
         const userId = ctx.from?.id;
         if (!userId) return;
 
+        const previousSettings = this.userStateService.getUserSettings(userId);
         this.userStateService.setInputLanguage(userId, "hindi");
         await ctx.answerCbQuery();
 
         const settings = this.userStateService.getUserSettings(userId);
         const { inputFlag, outputFlag } =
             this.userStateService.getLanguageFlags(settings);
+
+        // Track language change
+        await this.analyticsService.trackLanguageChange({
+            ...this.analyticsService.createUserEvent(ctx),
+            changeType: "input",
+            previousInputLanguage: previousSettings.input,
+            newInputLanguage: "hindi",
+            previousOutputLanguage: previousSettings.output,
+            newOutputLanguage: settings.output,
+        });
 
         await ctx.editMessageText(
             `✅ Input language set to Hindi! 🇮🇳\nYou can now send voice messages or text in Hindi.\n\n📋 Current Configuration:\nInput: ${inputFlag} ${settings.input.charAt(0).toUpperCase() + settings.input.slice(1)}\nOutput: ${outputFlag} ${settings.output.charAt(0).toUpperCase() + settings.output.slice(1)}\n\nUse /change_language to modify other settings.`
@@ -482,6 +534,16 @@ export class BotController {
             await ctx.deleteMessage(thinkingMessage.message_id);
         } catch (error) {
             console.error("Voice processing error:", error);
+
+            // Track error
+            await this.analyticsService.trackError({
+                ...this.analyticsService.createUserEvent(ctx),
+                errorType: "voice_processing_error",
+                errorMessage:
+                    error instanceof Error ? error.message : "Unknown error",
+                context: "handleVoiceMessage",
+            });
+
             try {
                 await ctx.deleteMessage(thinkingMessage.message_id);
             } catch (deleteErr) {
