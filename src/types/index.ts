@@ -68,6 +68,10 @@ export interface ProcessingResult {
     inputText: string;
     outputText: string;
     audioBase64: string;
+    ragContext?: {
+        documentsFound: number;
+        hasRAGContext: boolean;
+    };
 }
 
 export type InputType = "text" | "voice";
@@ -80,4 +84,6 @@ export interface AppConfig {
     port: number;
     tempDir: string;
     logLevel: string;
+    posthogApiKey?: string;
+    posthogHost?: string;
 }
