@@ -26,6 +26,9 @@ importers:
       openai:
         specifier: ^4.103.0
         version: 4.103.0(zod@3.25.56)
+      posthog-node:
+        specifier: ^5.1.1
+        version: 5.1.1
       telegraf:
         specifier: ^4.16.3
         version: 4.16.3
@@ -1649,6 +1652,10 @@ packages:
   pkg-dir@4.2.0:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
+
+  posthog-node@5.1.1:
+    resolution: {integrity: sha512-6VISkNdxO24ehXiDA4dugyCSIV7lpGVaEu5kn/dlAj+SJ1lgcDru9PQ8p/+GSXsXVxohd1t7kHL2JKc9NoGb0w==}
+    engines: {node: '>=20'}
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -3985,6 +3992,8 @@ snapshots:
   pkg-dir@4.2.0:
     dependencies:
       find-up: 4.1.0
+
+  posthog-node@5.1.1: {}
 
   prelude-ls@1.2.1: {}
 
