@@ -58,20 +58,111 @@ class SimpleTextSplitter {
     }
 }
 
-// TF-IDF implementation for local search (NO OPENAI COST!)
-class TFIDFSearchEngine {
+// Enhanced Hybrid Search Engine (NO OPENAI COST!)
+class EnhancedSearchEngine {
     private documents: DocumentChunk[] = [];
     private vocabulary: Set<string> = new Set();
+    private phraseIndex: Map<string, Set<number>> = new Map();
     private termFrequency: Map<string, Map<string, number>> = new Map();
     private documentFrequency: Map<string, number> = new Map();
     private idf: Map<string, number> = new Map();
 
-    private tokenize(text: string): string[] {
-        return text
+    private tokenize(text: string): { words: string[]; phrases: string[] } {
+        // Normalize text
+        const normalized = text
             .toLowerCase()
-            .replace(/[^\w\s]/g, " ")
+            .replace(/[^\w\s']/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+
+        // Extract individual words (filter short words)
+        const words = normalized
             .split(/\s+/)
-            .filter((word) => word.length > 2); // Filter out very short words
+            .filter((word) => word.length > 2 && !this.isStopWord(word));
+
+        // Extract meaningful phrases (2-4 words)
+        const phrases: string[] = [];
+        const wordArray = normalized.split(/\s+/);
+
+        // 2-word phrases
+        for (let i = 0; i < wordArray.length - 1; i++) {
+            const phrase = `${wordArray[i]} ${wordArray[i + 1]}`;
+            if (phrase.length > 5) phrases.push(phrase);
+        }
+
+        // 3-word phrases
+        for (let i = 0; i < wordArray.length - 2; i++) {
+            const phrase = `${wordArray[i]} ${wordArray[i + 1]} ${wordArray[i + 2]}`;
+            if (phrase.length > 8) phrases.push(phrase);
+        }
+
+        // 4-word phrases (for things like "Chief Minister's Floriculture Mission")
+        for (let i = 0; i < wordArray.length - 3; i++) {
+            const phrase = `${wordArray[i]} ${wordArray[i + 1]} ${wordArray[i + 2]} ${wordArray[i + 3]}`;
+            if (phrase.length > 12) phrases.push(phrase);
+        }
+
+        return { words, phrases };
+    }
+
+    private isStopWord(word: string): boolean {
+        const stopWords = new Set([
+            "the",
+            "is",
+            "at",
+            "which",
+            "on",
+            "and",
+            "or",
+            "but",
+            "in",
+            "with",
+            "to",
+            "for",
+            "of",
+            "as",
+            "by",
+            "an",
+            "are",
+            "was",
+            "been",
+            "be",
+            "have",
+            "has",
+            "had",
+            "do",
+            "does",
+            "did",
+            "will",
+            "would",
+            "could",
+            "should",
+            "may",
+            "might",
+            "must",
+            "can",
+            "this",
+            "that",
+            "these",
+            "those",
+        ]);
+        return stopWords.has(word.toLowerCase());
+    }
+
+    private stemWord(word: string): string {
+        // Simple stemming - remove common suffixes
+        word = word.toLowerCase();
+
+        // Remove plurals
+        if (word.endsWith("ies")) return word.slice(0, -3) + "y";
+        if (word.endsWith("s") && word.length > 3 && !word.endsWith("ss"))
+            return word.slice(0, -1);
+
+        // Remove -ing, -ed
+        if (word.endsWith("ing") && word.length > 6) return word.slice(0, -3);
+        if (word.endsWith("ed") && word.length > 5) return word.slice(0, -2);
+
+        return word;
     }
 
     private calculateTF(terms: string[]): Map<string, number> {
@@ -82,9 +173,9 @@ class TFIDFSearchEngine {
             tf.set(term, (tf.get(term) || 0) + 1);
         }
 
-        // Normalize by total terms
+        // Use log-normalized TF for better scoring
         for (const [term, count] of tf) {
-            tf.set(term, count / totalTerms);
+            tf.set(term, 1 + Math.log(count));
         }
 
         return tf;
@@ -92,17 +183,34 @@ class TFIDFSearchEngine {
 
     addDocuments(documents: DocumentChunk[]): void {
         this.documents = documents;
+        this.vocabulary.clear();
+        this.phraseIndex.clear();
+        this.termFrequency.clear();
+        this.documentFrequency.clear();
+        this.idf.clear();
 
         // Build vocabulary and calculate term frequencies
         for (let i = 0; i < documents.length; i++) {
             const doc = documents[i];
-            const terms = this.tokenize(doc.content);
-            const tf = this.calculateTF(terms);
+            const { words, phrases } = this.tokenize(doc.content);
 
+            // Process words with stemming
+            const stemmedWords = words.map((word) => this.stemWord(word));
+            const allTerms = [...stemmedWords, ...phrases];
+
+            const tf = this.calculateTF(allTerms);
             this.termFrequency.set(i.toString(), tf);
 
+            // Build phrase index for exact matching
+            phrases.forEach((phrase) => {
+                if (!this.phraseIndex.has(phrase)) {
+                    this.phraseIndex.set(phrase, new Set());
+                }
+                this.phraseIndex.get(phrase)!.add(i);
+            });
+
             // Add to vocabulary and track document frequency
-            const uniqueTerms = new Set(terms);
+            const uniqueTerms = new Set(allTerms);
             for (const term of uniqueTerms) {
                 this.vocabulary.add(term);
                 this.documentFrequency.set(
@@ -123,34 +231,88 @@ class TFIDFSearchEngine {
     search(query: string, limit: number = 3): DocumentChunk[] {
         if (this.documents.length === 0) return [];
 
-        const queryTerms = this.tokenize(query);
-        const scores: Array<{ document: DocumentChunk; score: number }> = [];
+        const { words, phrases } = this.tokenize(query);
+        const stemmedWords = words.map((word) => this.stemWord(word));
+        const allQueryTerms = [...stemmedWords, ...phrases];
+
+        const scores: Array<{
+            document: DocumentChunk;
+            score: number;
+            docIndex: number;
+        }> = [];
 
         for (let i = 0; i < this.documents.length; i++) {
             let score = 0;
             const tf = this.termFrequency.get(i.toString()) || new Map();
 
-            for (const term of queryTerms) {
+            // 1. TF-IDF scoring for individual terms
+            for (const term of allQueryTerms) {
                 const termTF = tf.get(term) || 0;
                 const termIDF = this.idf.get(term) || 0;
                 score += termTF * termIDF;
             }
 
-            // Add fuzzy matching bonus for partial matches
+            // 2. Phrase matching bonus (highest weight)
             const content = this.documents[i].content.toLowerCase();
-            for (const term of queryTerms) {
-                if (content.includes(term)) {
-                    score += 0.1; // Small bonus for exact substring match
+            for (const phrase of phrases) {
+                if (
+                    this.phraseIndex.has(phrase) &&
+                    this.phraseIndex.get(phrase)!.has(i)
+                ) {
+                    score += 5.0; // High bonus for exact phrase match
+                }
+                if (content.includes(phrase)) {
+                    score += 3.0; // Medium bonus for substring match
+                }
+            }
+
+            // 3. Exact word matching bonus
+            for (const word of words) {
+                if (content.includes(word)) {
+                    score += 0.5; // Small bonus for exact word match
+                }
+            }
+
+            // 4. Title/filename matching (extra bonus)
+            const source = this.documents[i].metadata.source.toLowerCase();
+            for (const word of words) {
+                if (source.includes(word)) {
+                    score += 1.0; // Bonus for filename match
+                }
+            }
+
+            for (const phrase of phrases) {
+                if (source.includes(phrase)) {
+                    score += 2.0; // Higher bonus for phrase in filename
                 }
             }
 
             if (score > 0) {
-                scores.push({ document: this.documents[i], score });
+                scores.push({
+                    document: this.documents[i],
+                    score,
+                    docIndex: i,
+                });
             }
         }
 
         // Sort by score and return top results
         scores.sort((a, b) => b.score - a.score);
+
+        // Debug logging
+        if (scores.length > 0) {
+            console.log(`🔍 Search results for "${query}":`);
+            for (let i = 0; i < Math.min(3, scores.length); i++) {
+                const result = scores[i];
+                const filename =
+                    result.document.metadata.source.split("/").pop() ||
+                    "unknown";
+                console.log(
+                    `  ${i + 1}. ${filename} (score: ${result.score.toFixed(2)})`
+                );
+            }
+        }
+
         return scores.slice(0, limit).map((result) => result.document);
     }
 }
@@ -164,15 +326,15 @@ interface DocumentChunk {
 }
 
 export class RAGService {
-    private searchEngine: TFIDFSearchEngine;
+    private searchEngine: EnhancedSearchEngine;
     private documents: DocumentChunk[] = [];
     private textSplitter: SimpleTextSplitter;
     private documentsPath: string;
     private initialized = false;
 
     constructor() {
-        // NO MORE OPENAI EMBEDDINGS! Using local TF-IDF search instead
-        this.searchEngine = new TFIDFSearchEngine();
+        // Enhanced search engine with phrase matching (ZERO OpenAI cost!)
+        this.searchEngine = new EnhancedSearchEngine();
 
         this.textSplitter = new SimpleTextSplitter({
             chunkSize: 1000,
@@ -186,7 +348,7 @@ export class RAGService {
         if (this.initialized) return;
 
         console.log(
-            "🔄 Initializing RAG system with LOCAL SEARCH (NO OpenAI cost)..."
+            "🔄 Initializing RAG system with ENHANCED LOCAL SEARCH (NO OpenAI cost)..."
         );
         try {
             await this.loadDocuments();
@@ -282,9 +444,9 @@ export class RAGService {
             return;
         }
 
-        console.log("🔄 Building local search index (NO OpenAI cost)...");
+        console.log("🔄 Building enhanced search index (NO OpenAI cost)...");
         this.searchEngine.addDocuments(this.documents);
-        console.log("✅ Search index built successfully");
+        console.log("✅ Enhanced search index built successfully");
     }
 
     async searchDocuments(
@@ -300,7 +462,7 @@ export class RAGService {
         }
 
         try {
-            // Use local TF-IDF search (NO OPENAI COST!)
+            // Use enhanced local search (NO OPENAI COST!)
             const relevantResults = this.searchEngine.search(query, limit);
 
             console.log(
