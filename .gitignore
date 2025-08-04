@@ -102,6 +102,7 @@ pids
 *.swp
 *.swo
 *~
+.specstory/
 
 # OS
 .DS_Store

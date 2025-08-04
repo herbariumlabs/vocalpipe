@@ -7708,7 +7708,533 @@ Great this is working perfectly! Now write git commits for this on this codebase
 
 _**Assistant**_
 
+I'll create granular git commits following proper semantic conventions. Let me analyze the changes and create well-organized commits:
 
+
+---
+
+```bash
+git status
+```
+
+```
+On branch feat/rag
+Your branch is ahead of 'origin/feat/rag' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .gitignore
+        modified:   .specstory/history/2025-05-29_15-27Z-implementing-rag-model-feature-in-codebase.md
+        deleted:    DOCUMENT_CLEANUP_RESULTS.md
+        deleted:    RAG_INTEGRATION_RESULTS.md
+        deleted:    SEARCH_VALIDATION_RESULTS.md
+        modified:   package.json
+        modified:   pnpm-lock.yaml
+        modified:   src/config/index.ts
+        modified:   src/controllers/bot.ts
+        modified:   src/index.ts
+        modified:   src/services/processor.ts
+        modified:   src/types/index.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .specstory/history/2025-08-04_16-50Z-setup-prisma-for-user-query-logging.md
+        prisma/
+        src/services/database.ts
+        src/services/enhancedAnalytics.ts
+        src/services/enhancedProcessor.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+Now I'll create granular commits following semantic conventions:
+
+
+---
+
+```bash
+git add prisma/
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "feat: add Prisma schema for comprehensive user analytics logging"
+```
+
+```
+[feat/rag 449542d] feat: add Prisma schema for comprehensive user analytics logging
+ 3 files changed, 546 insertions(+)
+ create mode 100644 prisma/migrations/20250804193803_init/migration.sql
+ create mode 100644 prisma/migrations/migration_lock.toml
+ create mode 100644 prisma/schema.prisma
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add src/services/database.ts
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "feat: implement DatabaseService for PostgreSQL analytics logging"
+```
+
+```
+[feat/rag ab2e253] feat: implement DatabaseService for PostgreSQL analytics logging
+ 1 file changed, 512 insertions(+)
+ create mode 100644 src/services/database.ts
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add src/types/index.ts
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "feat: extend types for database logging and analytics interfaces"
+```
+
+```
+[feat/rag b38cbe1] feat: extend types for database logging and analytics interfaces
+ 1 file changed, 80 insertions(+)
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add src/services/enhancedAnalytics.ts
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "feat: create EnhancedAnalyticsService with dual PostHog and database logging"
+```
+
+```
+[feat/rag c7e7b4b] feat: create EnhancedAnalyticsService with dual PostHog and database logging
+ 1 file changed, 815 insertions(+)
+ create mode 100644 src/services/enhancedAnalytics.ts
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add src/services/enhancedProcessor.ts
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "feat: implement EnhancedProcessorService with comprehensive database logging"
+```
+
+```
+[feat/rag 1edb6b2] feat: implement EnhancedProcessorService with comprehensive database logging
+ 1 file changed, 444 insertions(+)
+ create mode 100644 src/services/enhancedProcessor.ts
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add src/controllers/bot.ts
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "feat: integrate enhanced services in BotController for database logging"
+```
+
+```
+[feat/rag a532b0f] feat: integrate enhanced services in BotController for database logging
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add src/index.ts src/config/index.ts
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "feat: add database connection and graceful shutdown in application startup"
+```
+
+```
+[feat/rag 456da6b] feat: add database connection and graceful shutdown in application startup
+ 2 files changed, 44 insertions(+), 37 deletions(-)
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add src/services/processor.ts
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "fix: update processor service for backward compatibility with enhanced types"
+```
+
+```
+[feat/rag 95f54eb] fix: update processor service for backward compatibility with enhanced types
+ 1 file changed, 5 insertions(+)
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add package.json pnpm-lock.yaml
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "feat: add Prisma scripts and enhanced build process for database integration"
+```
+
+```
+[feat/rag 9014c4c] feat: add Prisma scripts and enhanced build process for database integration
+ 2 files changed, 386 insertions(+), 2 deletions(-)
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add .env
+```
+
+```
+The following paths are ignored by one of your .gitignore files:
+.env
+hint: Use -f if you really want to add them.
+hint: Turn this message off by running
+hint: "git config advice.addIgnoredFile false"
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add .gitignore
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "chore: update gitignore for Prisma generated files and build artifacts"
+```
+
+```
+[feat/rag f9c86fd] chore: update gitignore for Prisma generated files and build artifacts
+ 1 file changed, 2 insertions(+)
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add .specstory/history/2025-08-04_16-50Z-setup-prisma-for-user-query-logging.md
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "docs: add comprehensive documentation for Prisma database logging setup"
+```
+
+```
+[feat/rag 1879ca7] docs: add comprehensive documentation for Prisma database logging setup
+ 1 file changed, 7714 insertions(+)
+ create mode 100644 .specstory/history/2025-08-04_16-50Z-setup-prisma-for-user-query-logging.md
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git rm DOCUMENT_CLEANUP_RESULTS.md RAG_INTEGRATION_RESULTS.md SEARCH_VALIDATION_RESULTS.md
+```
+
+```
+rm 'DOCUMENT_CLEANUP_RESULTS.md'
+rm 'RAG_INTEGRATION_RESULTS.md'
+rm 'SEARCH_VALIDATION_RESULTS.md'
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "chore: remove outdated documentation files"
+```
+
+```
+[feat/rag 4a363bb] chore: remove outdated documentation files
+ 3 files changed, 776 deletions(-)
+ delete mode 100644 DOCUMENT_CLEANUP_RESULTS.md
+ delete mode 100644 RAG_INTEGRATION_RESULTS.md
+ delete mode 100644 SEARCH_VALIDATION_RESULTS.md
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git status
+```
+
+```
+On branch feat/rag
+Your branch is ahead of 'origin/feat/rag' by 13 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .specstory/history/2025-05-29_15-27Z-implementing-rag-model-feature-in-codebase.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git add .specstory/history/2025-05-29_15-27Z-implementing-rag-model-feature-in-codebase.md
+```
+
+```
+
+
+vocalpipe git:feat/rag*  
+
+```
+
+---
+
+```bash
+git commit -m "docs: update specstory history with database logging implementation"
+```
+
+```
+[feat/rag 9412827] docs: update specstory history with database logging implementation
+ 1 file changed, 3751 insertions(+), 285 deletions(-)
+
+
+vocalpipe git:feat/rag  
+
+```
+
+---
+
+```bash
+git log --oneline -10
+```
+
+```
+9412827 (HEAD -> feat/rag) docs: update specstory history with database logging implementation
+4a363bb chore: remove outdated documentation files
+1879ca7 docs: add comprehensive documentation for Prisma database logging setup
+f9c86fd chore: update gitignore for Prisma generated files and build artifacts
+9014c4c feat: add Prisma scripts and enhanced build process for database integration
+95f54eb fix: update processor service for backward compatibility with enhanced types
+456da6b feat: add database connection and graceful shutdown in application startup
+a532b0f feat: integrate enhanced services in BotController for database logging
+1edb6b2 feat: implement EnhancedProcessorService with comprehensive database logging
+c7e7b4b feat: create EnhancedAnalyticsService with dual PostHog and database logging
+
+
+vocalpipe git:feat/rag  
+
+```
+
+---
+
+Perfect! I've successfully created **13 granular git commits** following proper semantic conventions. Here's the complete commit history:
+
+## 📝 **Git Commit Summary**
+
+### **Database Schema & Infrastructure**
+1. **`feat: add Prisma schema for comprehensive user analytics logging`** - Prisma schema with 9 database models
+2. **`feat: implement DatabaseService for PostgreSQL analytics logging`** - Core database service implementation
+3. **`feat: extend types for database logging and analytics interfaces`** - Enhanced TypeScript interfaces
+
+### **Enhanced Services**
+4. **`feat: create EnhancedAnalyticsService with dual PostHog and database logging`** - Dual analytics system
+5. **`feat: implement EnhancedProcessorService with comprehensive database logging`** - Enhanced processor with logging
+6. **`feat: integrate enhanced services in BotController for database logging`** - Bot controller integration
+
+### **Application Configuration**
+7. **`feat: add database connection and graceful shutdown in application startup`** - App startup with DB connection
+8. **`fix: update processor service for backward compatibility with enhanced types`** - Backward compatibility fixes
+9. **`feat: add Prisma scripts and enhanced build process for database integration`** - Build process updates
+
+### **Configuration & Documentation**
+10. **`chore: update gitignore for Prisma generated files and build artifacts`** - Gitignore updates
+11. **`docs: add comprehensive documentation for Prisma database logging setup`** - Implementation documentation
+12. **`chore: remove outdated documentation files`** - Cleanup old docs
+13. **`docs: update specstory history with database logging implementation`** - Updated project history
+
+## ✅ **Commit Quality**
+
+- **Semantic Conventions**: All commits follow `feat:`, `fix:`, `chore:`, `docs:` prefixes
+- **Single Responsibility**: Each commit focuses on one specific aspect
+- **Granular Structure**: Changes are logically grouped by functionality
+- **Clear Descriptions**: Commit messages clearly describe what was changed
+- **Proper Ordering**: Infrastructure → Services → Integration → Configuration → Documentation
+
+The commits are now ready to be pushed to the repository! 🚀
 
 ---
 
