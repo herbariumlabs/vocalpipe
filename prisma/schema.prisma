@@ -1,0 +1,284 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../dist/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums for type safety
+enum Language {
+  HINDI
+  ENGLISH
+  ASSAMESE
+  PUNJABI
+}
+
+enum InputType {
+  TEXT
+  VOICE
+}
+
+enum EventType {
+  BOT_STARTED
+  MESSAGE_PROCESSED
+  VOICE_MESSAGE
+  TEXT_MESSAGE
+  LANGUAGE_CHANGED
+  RAG_QUERY_EXECUTED
+  CALLBACK_QUERY
+  ERROR_OCCURRED
+  SESSION_STARTED
+  SESSION_ENDED
+}
+
+enum ErrorType {
+  BOT_ERROR
+  PROCESSING_ERROR
+  RAG_ERROR
+  TRANSLATION_ERROR
+  TTS_ERROR
+  STT_ERROR
+  OPENAI_ERROR
+  BHASHINI_ERROR
+  RAG_STATS_ERROR
+  UNKNOWN_ERROR
+}
+
+// Core user information and preferences
+model User {
+  id               Int      @id @default(autoincrement())
+  telegramUserId   BigInt   @unique
+  username         String?
+  firstName        String?
+  lastName         String?
+  inputLanguage    Language @default(HINDI)
+  outputLanguage   Language @default(HINDI)
+  isActive         Boolean  @default(true)
+  totalMessages    Int      @default(0)
+  totalVoiceMessages Int    @default(0)
+  totalTextMessages  Int    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  lastActiveAt     DateTime @default(now())
+
+  // Relations
+  sessions         UserSession[]
+  conversations    Conversation[]
+  messages         Message[]
+  responses        Response[]
+  languageChanges  LanguageChange[]
+  ragQueries       RagQuery[]
+  analyticsEvents  AnalyticsEvent[]
+  errors           Error[]
+
+  @@map("users")
+}
+
+// Track user sessions for behavior analysis
+model UserSession {
+  id               String   @id @default(cuid())
+  userId           Int
+  startedAt        DateTime @default(now())
+  endedAt          DateTime?
+  messagesCount    Int      @default(0)
+  voiceMessagesCount Int    @default(0)
+  textMessagesCount  Int    @default(0)
+  languageChangesCount Int  @default(0)
+  totalProcessingTime Int   @default(0) // in milliseconds
+  isActive         Boolean  @default(true)
+
+  // Relations
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages         Message[]
+  responses        Response[]
+  analyticsEvents  AnalyticsEvent[]
+
+  @@map("user_sessions")
+}
+
+// Track conversation threads
+model Conversation {
+  id               String   @id @default(cuid())
+  userId           Int
+  startedAt        DateTime @default(now())
+  lastMessageAt    DateTime @default(now())
+  messagesCount    Int      @default(0)
+  isActive         Boolean  @default(true)
+  topic            String?  // AI-generated topic summary
+  
+  // Relations
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages         Message[]
+  responses        Response[]
+
+  @@map("conversations")
+}
+
+// User input messages
+model Message {
+  id               String   @id @default(cuid())
+  userId           Int
+  sessionId        String?
+  conversationId   String?
+  inputType        InputType
+  originalText     String?  // Original text from user or STT result
+  processedText    String?  // Processed/cleaned text
+  audioFileId      String?  // Telegram file ID for voice messages
+  inputLanguage    Language
+  messageLength    Int      @default(0)
+  processingTimeMs Int?     // Time taken to process this message
+  timestamp        DateTime @default(now())
+
+  // Relations
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session          UserSession?  @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  conversation     Conversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  response         Response?     // One-to-one with response
+  ragQuery         RagQuery?
+
+  @@map("messages")
+}
+
+// Bot responses
+model Response {
+  id               String   @id @default(cuid())
+  messageId        String   @unique
+  userId           Int
+  sessionId        String?
+  conversationId   String?
+  responseText     String
+  translatedText   String?  // If translation was applied
+  audioBase64      String?  // Generated audio response
+  outputLanguage   Language
+  hasRAGContext    Boolean  @default(false)
+  ragDocumentsFound Int     @default(0)
+  processingTimeMs Int      @default(0)
+  totalTokensUsed  Int?     // OpenAI tokens used
+  aiModel          String?  // Which AI model was used
+  timestamp        DateTime @default(now())
+
+  // Relations
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session          UserSession?  @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  conversation     Conversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  message          Message       @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  ragQuery         RagQuery?
+
+  @@map("responses")
+}
+
+// Track language preference changes
+model LanguageChange {
+  id                     String   @id @default(cuid())
+  userId                 Int
+  changeType             String   // "input", "output", "both"
+  previousInputLanguage  Language?
+  previousOutputLanguage Language?
+  newInputLanguage       Language?
+  newOutputLanguage      Language?
+  triggeredBy            String?  // "user_action", "system_default", etc.
+  timestamp              DateTime @default(now())
+
+  // Relations
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("language_changes")
+}
+
+// Track RAG queries and performance
+model RagQuery {
+  id               String   @id @default(cuid())
+  messageId        String   @unique
+  responseId       String?  @unique
+  userId           Int
+  query            String
+  documentsFound   Int      @default(0)
+  relevantChunks   Int      @default(0)
+  hasResults       Boolean  @default(false)
+  searchTimeMs     Int?     // Time taken for RAG search
+  topDocuments     Json?    // Store top matching documents metadata
+  relevanceScores  Json?    // Store relevance scores
+  timestamp        DateTime @default(now())
+
+  // Relations
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message          Message   @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  response         Response? @relation(fields: [responseId], references: [id], onDelete: SetNull)
+
+  @@map("rag_queries")
+}
+
+// General analytics events
+model AnalyticsEvent {
+  id               String    @id @default(cuid())
+  userId           Int
+  sessionId        String?
+  eventType        EventType
+  eventData        Json?     // Store additional event-specific data
+  callbackData     String?   // For callback query events
+  platform         String    @default("telegram")
+  timestamp        DateTime  @default(now())
+
+  // Relations
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session          UserSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@map("analytics_events")
+}
+
+// Error tracking
+model Error {
+  id               String    @id @default(cuid())
+  userId           Int?
+  errorType        ErrorType
+  errorMessage     String
+  errorContext     String?   // Where the error occurred
+  stackTrace       String?
+  additionalData   Json?     // Store additional error context
+  isResolved       Boolean   @default(false)
+  timestamp        DateTime  @default(now())
+
+  // Relations
+  user             User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("errors")
+}
+
+// System metrics and performance tracking
+model SystemMetric {
+  id               String   @id @default(cuid())
+  metricName       String
+  metricValue      Float
+  metricUnit       String?  // "ms", "count", "percentage", etc.
+  tags             Json?    // Additional metric tags
+  timestamp        DateTime @default(now())
+
+  @@index([metricName, timestamp])
+  @@map("system_metrics")
+}
+
+// Daily usage statistics (for quick analytics queries)
+model DailyStats {
+  id                   String   @id @default(cuid())
+  date                 DateTime @unique @db.Date
+  totalUsers           Int      @default(0)
+  activeUsers          Int      @default(0)
+  newUsers             Int      @default(0)
+  totalMessages        Int      @default(0)
+  totalVoiceMessages   Int      @default(0)
+  totalTextMessages    Int      @default(0)
+  totalRAGQueries      Int      @default(0)
+  totalErrors          Int      @default(0)
+  languageDistribution Json?    // Distribution of language usage
+  avgProcessingTime    Float?   // Average processing time in ms
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@map("daily_stats")
+}
