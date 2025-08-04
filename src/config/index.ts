@@ -12,6 +12,7 @@ export const config: AppConfig = {
     logLevel: process.env.LOG_LEVEL || "info",
     posthogApiKey: process.env.POSTHOG_API_KEY,
     posthogHost: process.env.POSTHOG_HOST || "https://us.i.posthog.com",
+    databaseUrl: process.env.DATABASE_URL,
 };
 
 export const validateConfig = (): void => {
