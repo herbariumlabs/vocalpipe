@@ -126,3 +126,5 @@ coverage/
 *.oga
 *.mp3
 *.m4a
+
+/src/generated/prisma
