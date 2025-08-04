@@ -201,6 +201,11 @@ export class ProcessorService {
             outputText: finalText,
             audioBase64,
             ragContext: gptResult.ragContext,
+            processingTimeMs: processingTime,
+            totalTokensUsed: undefined,
+            aiModel: undefined,
+            messageId: undefined,
+            responseId: undefined,
         };
     }
 
