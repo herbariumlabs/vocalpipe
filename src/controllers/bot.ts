@@ -3,8 +3,8 @@ import { createReadStream } from "fs";
 import { BhashiniService } from "../services/bhashini";
 import { OpenAIService } from "../services/openai";
 import { UserStateService } from "../services/userState";
-import { ProcessorService } from "../services/processor";
-import { AnalyticsService } from "../services/analytics";
+import { EnhancedProcessorService } from "../services/enhancedProcessor";
+import { EnhancedAnalyticsService } from "../services/enhancedAnalytics";
 import { cleanupFiles, ensureDirectoryExists } from "../utils/file";
 import { config } from "../config";
 import { InputType } from "../types";
@@ -14,16 +14,16 @@ export class BotController {
     private bhashiniService: BhashiniService;
     private openaiService: OpenAIService;
     private userStateService: UserStateService;
-    private processorService: ProcessorService;
-    private analyticsService: AnalyticsService;
+    private processorService: EnhancedProcessorService;
+    private analyticsService: EnhancedAnalyticsService;
 
     constructor() {
         this.bot = new Telegraf(config.telegramBotToken);
         this.bhashiniService = new BhashiniService();
         this.openaiService = new OpenAIService();
         this.userStateService = new UserStateService();
-        this.analyticsService = new AnalyticsService();
-        this.processorService = new ProcessorService(
+        this.analyticsService = new EnhancedAnalyticsService();
+        this.processorService = new EnhancedProcessorService(
             this.bhashiniService,
             this.openaiService,
             this.userStateService,
@@ -528,7 +528,8 @@ export class BotController {
         try {
             const result = await this.processorService.processVoiceMessage(
                 userId,
-                fileLink.href
+                fileLink.href,
+                ctx
             );
             await this.sendAudioResponse(ctx, userId, result, "voice");
             await ctx.deleteMessage(thinkingMessage.message_id);
@@ -573,7 +574,8 @@ export class BotController {
         try {
             const result = await this.processorService.processTextInput(
                 userId,
-                inputText
+                inputText,
+                ctx
             );
             await this.sendAudioResponse(ctx, userId, result, inputType);
             await ctx.deleteMessage(thinkingMessage.message_id);
