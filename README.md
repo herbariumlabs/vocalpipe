@@ -19,7 +19,7 @@ Advanced multilingual voice and text AI bot with dual language support and RAG (
 
 VocalPipe now includes a powerful RAG (Retrieval-Augmented Generation) system that:
 
-- 📖 **Searches Local Documents**: Automatically indexes and searches through documents in the `documents/` directory
+- 📖 **Searches Local Documents**: Automatically indexes and searches through documents in the `datasets/` directory
 - 🎯 **Contextual Responses**: Provides more accurate answers by referencing relevant documents
 - 📝 **Source Citation**: Cites document sources when using information from the knowledge base
 - 🔍 **Intelligent Fallback**: Uses general AI knowledge when no relevant documents are found
@@ -29,18 +29,10 @@ VocalPipe now includes a powerful RAG (Retrieval-Augmented Generation) system th
 ## Document Structure
 
 ```
-documents/
-├── README.md
-├── research/           # Research papers and academic documents
-│   └── 2008_Relative_abundance_of_different_stem_borer_species_in_Ahu_and_Sali_rice.md
-├── guides/            # User guides and tutorials
-│   └── getting_started_with_rag.md
-├── assam_documents/   # Assam-specific agricultural policies and schemes (52 documents)
-├── central_documents/ # Central/Federal agricultural programs (52 documents)
-├── guidelines/        # Implementation guidelines
-├── policies/          # Policy documents
-├── schemes/           # Government schemes
-└── reference/         # Reference materials and technical docs
+datasets/
+├── Assam Law and Policy/              # Assam-specific policies, schemes, guidelines
+├── Government of India Law and Policy/ # Central/Federal programs and policies
+└── ...                                # Additional curated corpora
 ```
 
 ## Supported Workflows
@@ -137,11 +129,10 @@ npm run test:watch
 
 ## Adding Documents to RAG
 
-1. Place documents in the appropriate `documents/` subdirectory:
+1. Place documents in the appropriate `datasets/` subdirectory:
 
-    - `documents/research/` for research papers
-    - `documents/guides/` for user guides
-    - `documents/reference/` for reference materials
+    - `datasets/Assam Law and Policy/` for Assam-specific content
+    - `datasets/Government of India Law and Policy/` for central content
 
 2. Supported formats: `.md`, `.txt`
 
@@ -165,13 +156,10 @@ src/
 ├── utils/          # Utility functions
 ├── config/         # Configuration management
 └── index.ts        # Application entry point
-
-documents/          # RAG knowledge base
-├── research/       # Research papers
-├── guides/         # User guides
-├── assam_documents/# Assam-specific documents
-├── central_documents/# Central/Federal documents
-└── reference/      # Reference materials
+datasets/           # RAG knowledge base
+├── Assam Law and Policy/              # Assam-specific corpus
+├── Government of India Law and Policy/# Central/Federal corpus
+└── ...
 ```
 
 ## Technologies
@@ -189,7 +177,7 @@ documents/          # RAG knowledge base
 
 The RAG system works by:
 
-1. **Document Loading**: Recursively scans the `documents/` directory for supported files
+1. **Document Loading**: Recursively scans the `datasets/` directory for supported files
 2. **Text Chunking**: Splits documents into 1000-character chunks with 200-character overlap
 3. **Local Indexing**: Uses TF-IDF (Term Frequency-Inverse Document Frequency) algorithm
 4. **Semantic Search**: Calculates relevance scores with fuzzy matching
