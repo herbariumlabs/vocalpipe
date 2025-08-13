@@ -23,7 +23,9 @@
         "db:seed": "ts-node prisma/seed.ts",
         "db:reset": "prisma migrate reset",
         "db:push": "prisma db push",
-        "db:pull": "prisma db pull"
+        "db:pull": "prisma db pull",
+        "rag:generate-tests": "ts-node scripts/generate_rag_tests.ts",
+        "rag:evaluate": "ts-node scripts/evaluate_rag.ts"
     },
     "keywords": [
         "telegram",
