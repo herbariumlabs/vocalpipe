@@ -1,0 +1,402 @@
+[
+  {
+    "question": "Give a brief overview of **CM Dr. Sarma ceremoniously launches Assam Logistics and Ware Housing Policy 2022 State Govt sings two MoUs for MSME and entrepreneur sector**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/ALWP-PR-cm-launches_policy_19.09.2022.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "On September 19, 2022, Chief Minister Dr. Himanta Biswa Sarma launched the Assam Logistics and Warehousing Policy 2022 during an MSME conclave at the Assam Administrative Staff College. This policy aims to establish Assam as a regional logistics hub to promote the state's economic development. During the event, the government also signed two Memoranda of Understanding (MoUs). One MoU was with the Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE) to facilitate easier financial access for micro and small enterprises. The other MoU was with SIDBI Venture Capital for the Assam Startup Venture Fund, which has a total size of Rs. 200 crore, with contributions from the state government and SIDBI (Press Release No. 281/2022).",
+    "keyword_recall": 0.75
+  },
+  {
+    "question": "Summarize **ASSAM SECRETARIAT(CIVIL) DISPUR, GUWAHATI-781006**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/ALWP-logistics_warehousing_policy_operational_guidelines.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Assam Secretariat, located in Dispur, Guwahati, serves as the administrative center for the government of Assam. It houses various departments, including the Industries, Commerce & Public Enterprise Department. Notably, on September 4, 2023, the Governor of Assam approved the Operational Guidelines for the \"Assam Logistics and Warehousing Policy 2022,\" which aims to provide incentives and subsidies under this policy. This policy was initially notified on August 20, 2022, and is designed to support logistics and warehousing activities in the state. \n\nThis summary is based on the information from Document 1.",
+    "keyword_recall": 0.75
+  },
+  {
+    "question": "Summarize AGRI VISION 2025.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/ASSAM AGRI VISION 2025.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "AGRI VISION 2025 outlines the importance of agriculture in Assam's economy, noting that it contributed 35% to the State Domestic Product in 1996-97. The government has prioritized agriculture, leading to significant increases in rice production, from 31.55 lakh metric tons in 1997-98 to 39 lakh metric tons in 1999-2000. This growth was supported by initiatives like assured Shallow Tube Well irrigation through World Bank and NABARD assistance. \n\nWhile challenges such as regular floods, droughts, population pressure on land, and infrastructural weaknesses exist, farmers have begun to enhance production through technological innovations and supportive government policies. The document emphasizes the collective responsibility of all stakeholders, including farmers, policymakers, and consumers, in achieving sustainable agricultural development (Document 2).",
+    "keyword_recall": 0.75
+  },
+  {
+    "question": "Give a brief overview of **ASSAM LOGISTICS AND WAREHOUSING POLICY, 2022**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/AWLP-assamlogistics_and_warehousing_policy-2022.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The **Assam Logistics and Warehousing Policy, 2022** was enacted by the Government of Assam and came into effect on August 20, 2022. The policy is designed to promote the logistics and warehousing sector in the state for a period of five years, or until further orders are issued. \n\nThe policy provides a framework for the establishment and operation of logistics parks, warehouses, and related facilities, aiming to enhance the efficiency and competitiveness of logistics services in Assam. Registered units are eligible to apply for various benefits under this policy, which includes incentives and subsidies.\n\nThe policy is overseen by the Industries, Commerce, and Public Enterprise Department of the Government of Assam, ensuring that project implementation aligns with state development goals. \n\nOperational guidelines for the policy were later approved on September 4, 2023, providing further details on how incentives and subsidies can be claimed under the policy framework (sources: Document 1, Document 2, Document 3).",
+    "keyword_recall": 0.5
+  },
+  {
+    "question": "Summarize **Table of Contents**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Amrit Brikshya Andolan.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "Here is a summary of the Table of Contents from the provided documents:\n\n1. **Document 1: Sub-Mission on Agricultural Mechanization (Revised in 2016-17)**\n   - Introduction\n   - Mission Objectives\n   - Mission Strategy\n   - Mission Components\n   - Position of Ongoing Schemes\n   - Mission Structure (National, Executive Committee, State Level, District Level, Role of Panchayati Raj)\n   - Procedure for Approvals and Fund Flow Mechanism\n   - Monitoring\n\n2. **Document 2: Atal Bhujal Yojana Guidelines**\n   - Background (Context, Atal Bhujal Yojana Overview, Program Guidelines, Key Definitions)\n   - Program Description and Components\n\n3. **Document 3: PM Formalisation of Micro Food Processing Enterprises Scheme (PM FME Scheme)**\n   - Background\n   - One District One Product\n   - Programme Contents\n   - Individual Category\n\nThese outlines provide an overview of the main topics and structure for each document.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Summarize CHAPTER 1.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Amrit_Sarovar_December_2023.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "Chapter 1 of the relevant documents contains sector-level analyses for various sectors, including Agriculture, Animal Husbandry, and Fisheries. Here is a brief summary for each sector:\n\n1. **Agriculture Sector**:\n   - **Background**: This section provides an overview of the agriculture sector in India, including its significance and contributions to the economy.\n   - **Performance**: It discusses the growth and productivity trends in the agriculture sector, highlighting key agricultural commodities and their impacts on the economy.\n   - **Issues and Challenges**: This portion outlines the main challenges facing the agriculture sector, such as climate change, resource management, and market access.\n\n2. **Animal Husbandry Sector**:\n   - **Background**: It presents an introduction to animal husbandry, emphasizing its role in food security and rural livelihoods.\n   - **Performance**: This section assesses the performance of the sector, including livestock production rates and contributions to the economy.\n   - **Issues and Challenges**: Key challenges are identified, including disease management, feed availability, and the need for better infrastructure.\n\n3. **Fisheries Sector**:\n   - **Background**: An introduction to the fisheries sector, discussing its importance for nutrition and livelihoods.\n   - **Performance**: The performance analysis covers aspects like fish production levels and export potential.\n   - **Issues and Challenges**: Challenges include overfishing, environmental sustainability, and the need for improved fishing practices.\n\nOverall, Chapter 1 provides a comprehensive overview of each sector, detailing their backgrounds, performances, and the challenges they face, which sets the stage for the recommendations that follow in later chapters. This summary is based on information from Document 1.",
+    "keyword_recall": 0.125
+  },
+  {
+    "question": "Summarize THE ASSAM AGRICULTURAL ENGINEERING.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam Agricultural Engineering Service Rules.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Assam Agricultural Engineering Service Rules, established in 1983, regulate the recruitment and conditions of service for personnel in the Assam Agricultural Engineering Service. The rules are authorized by the Governor of Assam and took effect from the notification date, June 7, 1983.\n\nKey points include:\n\n1. **Definitions**: The document defines various terms, including 'Appointing Authority,' 'Board,' 'Commission,' 'Government,' and others relevant to the service.\n\n2. **Class and Cadre**: The service is categorized into different classes. Class I includes high-ranking positions such as Chief Engineer, Superintending Engineer, and Executive Engineer. Class D includes Sub-divisional Agricultural Engineers and Assistant Agricultural Engineers.\n\n3. **Promotion and Eligibility**: Specific criteria for promotions are outlined, including years of service, training completion, and passing departmental examinations. There are provisions for officers in lower classes to be promoted based on their qualifications for higher positions.\n\nThese rules are essential for maintaining the structure and function of the Assam Agricultural Engineering Service as per the government's guidelines. \n\nThis summary is based on the information from the Assam Agricultural Engineering Service Rules documents.",
+    "keyword_recall": 0.25
+  },
+  {
+    "question": "Give a brief overview of ***AGRICULTURAL DRAFT POLICY, ASSAM***.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam Agriculture Policy prepared by AAU.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Agricultural Draft Policy for Assam, prepared by Assam Agricultural University with inputs from various line departments and agencies, aims to double farm production and farmers' income. The document highlights that Assam's economy is primarily agrarian, with agriculture and allied activities contributing about 20 percent to the state's net domestic product and providing livelihood support to approximately 75 percent of the population.\n\nThe policy notes that the productivity of major crops, such as rice, pulses, and oilseeds, is significantly lower in Assam compared to the national average. It describes the state's agricultural practices as characterized by monocropping, smallholder farming, and low input-low output systems, primarily under rainfed conditions. The document emphasizes the need for improvements in agricultural productivity and sustainability to enhance farmers' incomes and overall agricultural development in the region. \n\nThis overview is based on the information provided in Document 1, titled \"AGRICULTURAL DRAFT POLICY, ASSAM.\"",
+    "keyword_recall": 0.875
+  },
+  {
+    "question": "Summarize **Check list**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam Horticulture.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The checklist mentioned in the documents relates to the submission of applications for various incentives under the logistics and warehousing policy. Here are the key points:\n\n1. **Forms for Applications**: Different forms are required for various applications:\n   - Capital Subsidy for refrigerated vehicle incentives: Form A-3.\n   - Stamp Duty Reimbursement: Form A-4.\n   - Capacity Building incentives: Form A-5.\n   - Start-up incentives for research and innovation in the logistics sector: Form A-6.\n   - Green Logistics initiatives (Electric Bicycles): Form A-7.\n   - Green Logistics initiatives (Electric Cargo Vehicles): Form A-8.\n\n2. **Enquiry Reports**: Each application requires an enquiry report submitted alongside the relevant form. For example:\n   - Capital Subsidy: Form A-3.1.\n   - Stamp Duty Reimbursement: Form A-4.1.\n   - Start-up incentives: Form A-6.1.\n\n3. **Documentation**: Applications must be submitted with supporting documents as per the checklist outlined in the policy.\n\nThis summary is based on the operational guidelines from Document 1 and Document 2.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Give a brief overview of Assam Paddy And Rice Procurement (Levy & Licensing) Permanent Order, 1995.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam Paddy And Rice Procurement (Levy & Licensing) Permanent Order, 1995.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Assam Paddy and Rice Procurement (Levy & Licensing) Permanent Order, 1995, establishes the legal framework for the procurement of paddy and rice in Assam. This order mandates that all rice millers must obtain a license to operate and outlines the conditions under which the procurement of paddy is to be conducted. It aims to regulate the procurement process to ensure fair practices and timely supply of rice to government agencies.\n\nThe order typically includes provisions regarding the levy on rice millers, which is a portion of their processed rice that must be supplied to the government at predetermined prices. This system is intended to stabilize rice prices and ensure sufficient availability for public distribution systems. Additionally, the order delineates the roles and responsibilities of various stakeholders involved in the procurement process, including government agencies and millers.\n\nFor more specific details or provisions, it would be beneficial to refer directly to the text of the order.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Give a brief overview of STATE AGRICULTURE POLICY,ASSAM.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam State Agricultural Policy.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The State Agriculture Policy of Assam is centered around the significance of agriculture in the state's predominantly rural economy, where approximately 70% of the population relies on agriculture for their livelihood. While Assam has achieved self-sufficiency in rice, it faces challenges with shortfalls in oilseeds, pulses, and wheat, as well as significant post-harvest losses, especially with fruits and vegetables.\n\nThe policy highlights the need for diversification and improving productivity in agriculture, as the current scenario shows low cropping intensity and potential adverse effects from international trade agreements. The primary objectives include achieving a growth rate of 4% per annum in the agriculture and allied sectors over the next decade, enhancing food security, improving nutritional intake, and reducing poverty levels among the population (Document 1 and Document 2).",
+    "keyword_recall": 0.625
+  },
+  {
+    "question": "What are the key points in **OPERATIONAL GUIDELINES OF** **THE ASSAM BAMBOO AND CANE POLICY, 2019**?",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam_bamboo_and_cane_policy_2021.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The key points in the Operational Guidelines of The Assam Bamboo and Cane Policy, 2019 include the following:\n\n1. **Purpose**: The guidelines are designed for the implementation of The Assam Bamboo and Cane Policy, 2019, specifically referring to sub clause (f) under Additional Incentives as stated in clause XI of the policy.\n\n2. **Alignment with National Policies**: The interventions under the Assam Bamboo and Cane Policy are to be guided by the revised Operational Guidelines of The National Bamboo Mission. This includes adherence to the rules, regulations, and definitions established by the mission over time.\n\n3. **Accessibility of Guidelines**: The revised Operational Guidelines can be accessed and downloaded from the official website of the National Bamboo Mission (www.nbm.nic.in).\n\nThese points reflect the foundational aspects of the operational guidelines as outlined in the documents. For a more detailed understanding, further specifics would be available in the complete text of the guidelines. The information is primarily derived from Document 1 and Document 2.",
+    "keyword_recall": 0.625
+  },
+  {
+    "question": "Summarize Availability of Foundation Seeds in ASC Farms.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Availability of Foundation Seeds in ASC Farms.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The document on the availability of foundation seeds in ASC farms provides a detailed list of various paddy foundation seeds along with their quantities. Here is a summary of the key information:\n\n1. **Luit F/S**: 33.2 quintals\n2. **Ranjit F/S**: 391.6 quintals\n3. **Chandrama F/S**: 857.1 quintals\n4. **Naveen F/S**: 263 quintals\n5. **Gitesh**: 712.2 quintals\n6. **Swarna Sub-1 F/S**: 1767 quintals\n7. **Abhishek F/S**: 68.1 quintals\n8. **Basundhara F/S**: 171 quintals\n\nThe total quantity of foundation seeds available, excluding Joymoti seeds, is 4263.2 quintals. This overview highlights the availability of various paddy foundation seeds critical for agricultural activities in the region.",
+    "keyword_recall": 0.75
+  },
+  {
+    "question": "Summarize Block Resource Centre (BRC).",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Block Resource Centre (BRC).md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Block Resource Centre (BRC) is designed to support the implementation of various agricultural initiatives, particularly in the context of sustainable farming practices. It plays a crucial role in the establishment of Bio-Input Resource Centres (BRCs) aimed at providing access to natural farming (NF) inputs. The initiative proposes to set up 10,000 need-based BRCs to facilitate the production and supply of animal and plant-based NF inputs at the local level.\n\nThese BRCs can be operated by various entities, including practicing NF farmers, farmer producer organizations (FPOs), self-help groups (SHGs), primary agricultural cooperative societies (PACS), local rural entrepreneurs, and agricultural universities. The BRCs are intended to support farmers who want to adopt natural farming but may need assistance in preparing these inputs themselves. Detailed operational guidelines regarding the establishment and functioning of these centres will be developed and shared as part of the initiative (source: Document 3).",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Give a brief overview of CM Floriculture Mission.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/CM Floriculture Mission.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Chief Minister's Floriculture Mission in Assam was initiated in the year 2015-16 with a budget provision of approximately 280 lakh rupees. The mission aims to promote the cultivation of floriculture crops, which are recognized for their potential to provide better returns compared to other agricultural crops. It encourages the cultivation of various flowers such as Marigold, Tuberose, Anthurium, Gerbera, Rose, and Orchids. \n\nAdditionally, the mission includes support through various schemes like the Horticulture Mission for North East (HMNEH) and the Rashtriya Krishi Vikas Yojana (RKVY). The initiative also establishes Centers of Excellence (CoEs) for improved cultivation techniques, helping farmers adopt adequate technologies in their fields (Document 3).",
+    "keyword_recall": 0.375
+  },
+  {
+    "question": "Summarize CM_PR_2023.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/CM_PR_2023.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the content of \"CM_PR_2023.docx\" as it is not included in the provided documents. Therefore, I cannot summarize it. If you can provide specific details or text from that document, I would be happy to help you summarize it.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Give a brief overview of Chief Minister's Floriculture Mission Assam.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Chief Minister's Floriculture Mission Assam.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Chief Minister's Floriculture Mission in Assam was implemented in the year 2015-16 with a budget provision of Rs. 280 lakh, allocating Rs. 279.468 lakh specifically for the initiative. This mission aims to leverage the state's suitable agro-climatic conditions, which naturally support a diverse range of flowering species with aesthetic and horticultural value. Floriculture is an important aspect of Assam's cultural heritage, with ornamental gardens being a traditional feature in households across the state.\n\nThe financial resources for this mission are allocated under the head of accounts related to crop husbandry and horticulture, specifically focusing on materials and supplies for the floriculture sector. The mission underscores the importance of promoting horticulture and enhancing the state's capacity in flower cultivation. This information is derived from the documents outlining the mission's objectives and financial details.",
+    "keyword_recall": 0.625
+  },
+  {
+    "question": "Summarize Departmental Seed Farm & Nursery.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Departmental Seed Farm & Nursery.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Departmental Seed Farm and Nursery program involves several seed farms across various districts, focusing on the production and distribution of seeds for agricultural use. Each seed farm is associated with specific metrics, such as area cultivated, quantity of seeds produced, and types of crops grown.\n\nHowever, it is noted that there have been no departmental programs executed in the seed farms and nurseries during the current financial year due to a lack of allocated funds under the state plan. The data includes various seed farms, their locations, and production figures, highlighting the agricultural potential in different districts.\n\nFor example, the Tulsibari Seed Farm produced a total of 486.37 units, while the Krishnai Seed Farm showed significant production with 59.70 units. Overall, the documentation reflects a structured approach to seed production, though it is currently hindered by financial constraints (Document 1 and Document 2).",
+    "keyword_recall": 0.625
+  },
+  {
+    "question": "Summarize District wise Development Blocks & sub-div in Assam.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/District wise Development Blocks & sub-div in Assam.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The documents provide a detailed overview of the development blocks and sub-divisions in various districts of Assam. Here's a summary of some districts along with their respective development blocks:\n\n1. **Dhemaji District** (5 Development Blocks)\n   - Dhemaji Development Block\n   - Bordoloni Development Block\n   - Machkhowa Development Block\n   - Sissiborgaon Development Block\n   - Murkong Selleck Development Block\n\n2. **Hailakandi District** (5 Development Blocks)\n   - Algapur Development Block\n   - Hailakandi Development Block\n   - Lala Development Block\n   - Katilicherra Development Block\n   - South-Hailakandi Development Block\n\n3. **Bongaigaon District** (6 Development Blocks)\n   - Dangtol Development Block\n   - Tapattari Development Block\n   - Srijangram Development Block\n   - Boitamari Development Block\n   - Manikpur Development Block\n\n4. **Dhubri District** (14 Development Blocks)\n   - Agomani Development Block\n   - Bilasipara Development Block\n   - Birsing Jarua Development Block\n   - Chapor Salkocha Development Block\n   - Debitola Development Block\n   - Fekamari Development Block\n   - Gauripur Development Block\n   - Golakganj Development Block\n   - Jamadarhat Development Block\n   - Mahamaya Development Block\n   - Mankachar Development Block\n   - Nayeralga Development Block\n   - Rupshi Development Block\n   - South Salmara Development Block\n\n5. **Golaghat District** (8 Development Blocks)\n   - Golaghat West Development Block\n   - Marangi Development Block\n   - Golaghat South Development Block\n   - Gomariguri Development Block\n   - Golaghat East Development Block\n   - Golaghat Central Development Block\n   - Golaghat North Development Block\n   - Kakodonga Development Block\n\n6. **Darrang District** (5 Development Blocks)\n   - Sipajhar Development Block\n   - Pachim Mangaldoi Development Block\n   - Pub-Mangaldoi Development Block\n   - Dalgaon Siyalmari Development Block\n   - Basimari Development Block\n\nThis summary highlights the structure of development blocks across selected districts in Assam, with specific attention to the number of blocks within each district. For a complete list, further details can be found in the documents referenced.",
+    "keyword_recall": 0.875
+  },
+  {
+    "question": "Summarize **DISTRICT-WISE FERTILIZER STATUS IN ASSAM AS ON 02-11-2021**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/District-wise Fertilizer status in Assam.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The document titled \"District-wise Fertilizer Status in Assam as on 02-11-2021\" provides an overview of the availability of Urea fertilizer stock across various districts in Assam. It aims to enhance transparency for the benefit of farmers. \n\nFor example, in Barpeta district, several wholesalers and their Urea stock are listed, including:\n\n- Sohail Agro Service: 301.95 MT\n- M/S Vanshika Fertilizers And Company: 197.865 MT\n- Green Nursery: 141.43 MT\n- Apsara Beej Bhandar: 125.145 MT\n- Krishi House: 90.405 MT\n\nIn Dhemaji district, there is a mention of Kansingh Sekhawat, who has a Urea stock of 176.33 MT. The document includes similar details for other districts as well, although specific stocks for those districts are not provided in the excerpt. The overall aim of the report is to ensure that farmers have access to necessary fertilizer resources. \n\nThis information is essential for farmers in planning their agricultural activities and ensuring they have the required inputs for their crops. The document serves as a resource for understanding the distribution and availability of fertilizers in the region.",
+    "keyword_recall": 0.875
+  },
+  {
+    "question": "Summarize **GOVERNMENT OF ASSAM**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/ECA_the_assam_public_distribution_of_articles_amendment_order_2025.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Government of Assam is the governing body of the state of Assam in India. It operates through various departments that manage different aspects of state governance, including agriculture, industries, commerce, environment, and forest management. \n\nKey policies and initiatives, such as the Assam Bamboo and Cane Policy of 2019, highlight the importance of bamboo in the cultural, social, and economic spheres of Assam. This policy aims to promote the development and sustainable use of bamboo and cane resources in the state.\n\nThe government also engages in various programs to support agribusiness and entrepreneurship, as evidenced by initiatives like the Agricultural Clinics and Agri-business Centres (ACABC) aimed at enhancing agricultural productivity and providing support to rural youth.\n\nOverall, the Government of Assam focuses on economic development, cultural preservation, and sustainable resource management to improve the living standards of its citizens. This information is drawn from the Assam Bamboo and Cane Policy, 2019, and general knowledge about the state's governance structure.",
+    "keyword_recall": 0.125
+  },
+  {
+    "question": "What are the key points in **0PERATIONAL GUIDELINES**?",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Equity-Grant-Scheme-and-Credit-Guarantee-Fund.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The documents provided do not contain specific information regarding **Operational Guidelines** or their key points. They mainly discuss the aspects of convergence across government schemes, challenges in implementation, and the use of management information systems. If you have access to a specific document that outlines the Operational Guidelines, please provide it, and I will assist you in summarizing the key points.",
+    "keyword_recall": 0.25
+  },
+  {
+    "question": "Summarize Farmer's Information and Advisory Centre (FIAC).",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Farmer's Information and Advisory Centre (FIAC).md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Farmer's Information and Advisory Centre (FIAC) is a key initiative aimed at providing essential information and advisory services to farmers. Its primary functions include offering guidance on agricultural practices, input availability, market trends, and weather conditions. FIACs serve as vital links between farmers and agricultural experts, facilitating better decision-making and enhancing productivity. They contribute to improving farmers' access to necessary resources and information, ultimately supporting agricultural development and sustainability. \n\nThis summary is based on general knowledge, as specific details about FIAC from the provided documents were not included.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Summarize Field Trial Station (FTS).",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Field Trial Station (FTS).md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "Field Trial Stations (FTS) are agricultural research facilities set up in various districts to conduct trials on different crops and farming practices. The data available outlines the status of FTS across several districts in Assam, including details such as total area, cultivable area, and the specific crops suitable for trial.\n\nFor example, the FTS in Nowgaon, named Telia Bebejia, has a total area of 13 hectares, with 10 hectares being cultivable. It is suitable for paddy, oilseeds, and pulses. Other FTS, such as Suklibharia in Lakhimpur and Charduar in Sonitpur, also have designated areas for different crops.\n\nIt is noted that part of the FTS lands in Kamrup are used by the horticulture department, and some lands in Kokrajhar have been handed over to a central institute. Additionally, there has been no departmental program conducted in the FTS during the present financial year due to a lack of allocated funds under the state plan (Document 1 and Document 2).\n\nOverall, Field Trial Stations play a crucial role in agricultural research by testing and improving crop varieties and farming techniques, although their operation may be impacted by funding constraints.",
+    "keyword_recall": 1
+  },
+  {
+    "question": "Summarize Food Processing scenario of Assam.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Food Processing scenario of Assam.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The food processing sector in Assam is in its early stages, with only 20 percent of agriculture-based Micro, Small, and Medium Enterprises (MSMEs) involved in this area. There is a strong need for policy reforms, including the implementation of a state Food Processing policy, to encourage agricultural entrepreneurs and reduce post-harvest losses, which can be as high as 25 to 40 percent for horticultural commodities due to their perishable nature. \n\nThe government aims to double farmers' income by 2022, with agro-processing being a key solution to achieving this goal. Significant initiatives include the establishment of a Mega Food Park in Tihu and a Food Processing Industrial Park in Chaygaon, which are seen as milestones in the sector. The Horticulture and Food Processing Department oversees primary processing and small-scale food processing units, while schemes like MIDH and MOVCD are designed to attract investment in medium-scale food processing (Document 1, Document 2). \n\nOverall, creating a supportive environment for learning about new initiatives and opportunities is essential for the growth of the food processing industry in Assam.",
+    "keyword_recall": 0.875
+  },
+  {
+    "question": "Summarize GREENBudget-2024-25.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/GREENBudget-2024-25.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The documents provided do not specifically mention a \"GREENBudget-2024-25.\" However, they do contain information about various budget allocations and schemes related to agriculture and related sectors for the financial year 2024-25.\n\n1. The first document outlines a budgetary outlay of Rs. 92,550 lakhs for the \"Support to Agriculture Extension\" and related programs, indicating a focus on enhancing agricultural practices and farmer training (Document 1).\n\n2. The second document discusses the continuation of the Modified Interest Subvention Scheme for short-term loans for agriculture and allied activities through the Kisan Credit Card during 2024-25, which aims to provide financial support to farmers (Document 2).\n\n3. The third document details the revised allocation of funds under the National Horticulture Mission and the Horticulture Mission for North East and Himalayan States for the same financial year, reflecting efforts to support horticultural development (Document 3).\n\nIf you are looking for specific details about environmental or green initiatives within the budget, that information is not directly available in the documents provided. Please let me know if you need further assistance or specific aspects of the budget summarized.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "What are the key points in Guideline of Bee keeping?",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Guideline of Bee keeping.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The documents provided do not contain specific information about the guidelines for beekeeping. Therefore, I will provide a general overview of key points typically included in beekeeping guidelines based on my general knowledge.\n\n1. **Site Selection**: Choose a location that has good sunlight, access to water, and is away from strong winds. It should also be in proximity to flowering plants.\n\n2. **Hive Setup**: Use appropriate hive types, such as Langstroth or top-bar hives. Ensure that the hives are elevated off the ground and provide proper ventilation.\n\n3. **Bee Selection**: Select bee species that are well-suited for your climate and environment. Common choices include Italian bees, Carniolan bees, and Russian bees.\n\n4. **Management Practices**: Regularly inspect hives for signs of disease, pests, and overall health. Manage the brood, honey production, and swarming tendencies.\n\n5. **Feeding**: Provide sugar syrup or pollen substitutes when natural food sources are scarce, particularly in early spring or during dearth periods.\n\n6. **Pest and Disease Control**: Implement integrated pest management strategies to control common pests like Varroa mites and diseases such as American foulbrood.\n\n7. **Harvesting Honey**: Follow best practices for honey extraction, storage, and bottling to ensure quality and safety.\n\n8. **Regulations and Certifications**: Be aware of local regulations regarding beekeeping and seek any necessary permits or certifications.\n\n9. **Education and Training**: Engage in ongoing education through workshops, courses, or local beekeeping associations to stay informed about best practices and innovations.\n\nThese points can vary depending on local regulations and specific practices. For detailed and region-specific guidelines, it is advisable to consult local agricultural extension services or beekeeping associations.",
+    "keyword_recall": 0.625
+  },
+  {
+    "question": "Give a brief overview of **National Mission on Oilseeds and Oil Palm (NMOOP)**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Guidelines-Oil Seed scheme under NMOOP.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The National Mission on Oilseeds and Oil Palm (NMOOP) was launched by the Government of India in the 2014-15 fiscal year and aimed to enhance the production and productivity of oilseeds and oil palm in the country. The mission was created to address the increasing dependence on the import of edible oils by promoting domestic production.\n\nNMOOP comprises three sub-missions focused on Oilseeds, Oil Palm, and Tree Borne Oilseeds. The objectives include increasing the area under oil palm cultivation, improving the yield of various oilseeds such as groundnut, soybean, and mustard, and ultimately augmenting the availability of vegetable oils in the Indian market. \n\nThe mission has been implemented in multiple states, with funding patterns varying between general states and northeastern or hill states. NMOOP was merged with the National Food Security Mission (NFSM) in 2018-19, continuing its focus on boosting oilseed production and reducing edible oil imports in India (Document 1, Document 2, Document 3).",
+    "keyword_recall": 0.5
+  },
+  {
+    "question": "Give a brief overview of **Capital Investment Subsidy Scheme under National Bamboo Mission Procedure for Sanction and Release of Subsidy**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Guidelines_for_Credit_Linked.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The Capital Investment Subsidy Scheme under the National Bamboo Mission (NBM) provides financial assistance to promote bamboo cultivation and processing. The subsidy is credit-linked and back-ended, meaning it is disbursed after the loan is sanctioned by financial institutions.\n\nHere is a brief overview of the procedure for sanction and release of subsidy:\n\n1. **Advance Subsidy**: An initial payment of 50% of the eligible subsidy amount is provided as an advance by the State level Bamboo Development Agency (BDA) to the participating financial institution (bank). This is done upon submission of a project scrutiny note and claim form.\n\n2. **Project Completion**: Once the project is completed or nearing completion, the promoters (from both government and private sectors) must submit a progress report. They also need to request an inspection and the release of the remaining subsidy.\n\n3. **Joint Inspection Committee (JIC)**: The JIC, comprising officers from the financial institution, district level BDA, and/or state level BDA, reviews the project and submits a report with recommendations for the release of the final subsidy.\n\n4. **Final Subsidy Release**: The State level BDA scrutinizes the claim and sanctions the final subsidy, which is then released to the concerned agency.\n\n5. **Review Process**: The District level BDA reviews loan sanctioning and subsidy release under the NBM through a Consultative Committee, which convenes quarterly.\n\nThis structured process ensures that the subsidy is effectively disbursed to support bamboo-related projects. This overview is based on the information from Document 1.",
+    "keyword_recall": 0.375
+  },
+  {
+    "question": "Summarize **Annexure-V**.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/HMNEH Guidelines.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "Annexure V outlines various responsibilities and programs related to the production and supply of quality seed and planting materials in India. Key organizations mentioned include:\n\n1. **National Seeds Corporation (NSC)** - Responsible for the production and supply of high-quality seeds and planting materials.\n2. **State Farm Corporation of India (SFCI)** - Also tasked with the development and supply of good quality seeds and planting materials.\n3. **Hindustan Insecticides Ltd. (HIL)** - Focuses on the production and supply of quality vegetable seeds.\n4. **National Research Centre for Citrus (NRCC)** - Implements programs related to citrus technology.\n\nAdditionally, the National Institute for Agricultural Extension Management (MANAGE) is involved in training field functionaries, while Fresh & Healthy Enterprises Ltd. (FHEL) conducts feasibility studies for integrated cold chain logistics for horticulture commodities.\n\nThis summary reflects the responsibilities and programs as detailed in the documents provided.",
+    "keyword_recall": 0.375
+  },
+  {
+    "question": "Summarize PINEAPPLE.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Horticultural Crops Practices Package-2016.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "Pineapple is a tropical fruit known for its sweet and tangy flavor. In terms of preparation for juice, it is recommended to use varieties such as Kew and Giant Kew in the industry, although any fully ripe variety can be used for home preparation. The preparation process involves selecting ripe fruits, peeling, cutting them into pieces, and then homogenizing or pulping the pieces with a mixer. The juice is then extracted using folded muslin cloth or presses.\n\nFor preservation, pineapple juice can be processed at a pH of 3.5 to 4.0 by heating it at 85 degrees Celsius for 30 minutes in glass bottles to ensure safety against spoilage from yeast, mold, and other microorganisms. Additionally, fruit juices can be preserved by adding sugar, which helps prevent fermentation when the sugar content is 66% or more (Document 1 and Document 2). \n\nOverall, pineapple is valued both for its flavor and its versatility in juice production and preservation.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Summarize List of Insecticide Assam Govt.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/List of Insecticide Assam Govt.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The documents provided do not include a specific list of insecticides from the Assam government. Document 1 mentions a notification from the Government of India regarding prohibited insecticides, but it does not list them. Document 2 pertains to the Insecticides Act of 1968 and outlines various provisions related to insecticides, such as regulations, powers of inspectors, and safety measures. However, it does not contain a specific list from the Assam government either. \n\nFor a detailed list of insecticides regulated or prohibited by the Assam government, you may need to consult official government publications or the relevant department's website.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Summarize MMS-CMSGUY-FRUITS.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY-FRUITS.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The document titled \"Project on High Value Fruit Crops- Apple Beer and Dragon Fruits under CMSGUY\" discusses the cultivation initiatives for Apple Ber and dragon fruit within Assam. It highlights that Apple Ber has recently been introduced to farmers and has shown promising returns due to its high market price, which ranges from Rs. 20 to 40 per fruit. Dragon fruit, known for its high value, is cultivated in various countries and has a market price of Rs. 250 to 300 per kg in India. The document notes that both fruits are well-suited to Assam's soil conditions, and there is a significant local and national market for these products. The cultivation methods recommended are organic, in line with guidelines from the National Centre of Organic Farming. This initiative is supported by financial assistance from CMSGUY.",
+    "keyword_recall": 0.75
+  },
+  {
+    "question": "Summarize MMS-CMSGUY.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The document outlines various schemes under the Chief Minister Samagra Gramya Unnayan Yojana (CMSGUY) in Assam, focusing on the preservation and promotion of cultural heritage and art forms. \n\n1. **Guru Sishya Monikanchan Scheme**: This initiative aims to preserve and propagate rare and vanishing art forms, including classical and folk/tribal arts, by nurturing young talents under the guidance of experienced Gurus. It is part of the broader \"Guru Sishya Parampara\" initiative by the Government of India, implemented by the Cultural Renaissance Mission Society (CRMS) in collaboration with the Directorate of Cultural Affairs. \n\n2. **Workshop cum Training at Cultural Centres**: This scheme promotes the cultural diversity of folk dances and music across various communities in Assam. It involves conducting workshops at 35 cultural centers to help young individuals acquire skills in traditional art forms specific to communities such as Bodo, Mishing, Karbi, and others. The program is also implemented by CRMS with assistance from the Directorate of Cultural Affairs.\n\nThese schemes collectively aim to foster artistic skills and ensure the continuity of Assam's rich cultural heritage.",
+    "keyword_recall": 0.375
+  },
+  {
+    "question": "Summarize MMS-CMSGUY_CAGECULTURE.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY_CAGECULTURE.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the document titled \"MMS-CMSGUY_CAGECULTURE.docx.\" Therefore, I cannot provide a summary of its contents. If you can share specific details or excerpts from the document, I would be happy to help you interpret or summarize that information.",
+    "keyword_recall": 0.125
+  },
+  {
+    "question": "Summarize MMS-CMSGUY_COWS.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY_COWS.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the document titled \"MMS-CMSGUY_COWS.docx.\" Therefore, I cannot provide a summary of its contents. If you have specific information or details from the document that you would like to discuss or summarize, please share them, and I would be happy to help.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Summarize MMS-CMSGUY_CULTURALCENTERS.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY_CULTURALCENTERS.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the document titled \"MMS-CMSGUY_CULTURALCENTERS.docx,\" so I cannot provide a summary. If you can share the key contents or main points of the document, I would be happy to help summarize or clarify any specific aspects.",
+    "keyword_recall": 0.25
+  },
+  {
+    "question": "Summarize MMS-CMSGUY_GURU.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY_GURU.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the document titled \"MMS-CMSGUY_GURU.docx.\" Therefore, I am unable to provide a summary. If you can provide the text or key points from the document, I would be happy to help summarize or analyze that information.",
+    "keyword_recall": 0.25
+  },
+  {
+    "question": "Summarize MMS-CMSGUY_MICROIRRIGATION.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY_MICROIRRIGATION.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the document titled \"MMS-CMSGUY_MICROIRRIGATION.docx.\" Therefore, I am unable to provide a summary. If you can share specific details or text from the document, I would be happy to help summarize or analyze that content.",
+    "keyword_recall": 0.25
+  },
+  {
+    "question": "Summarize MMS-CMSGUY_PLAYFIELD.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY_PLAYFIELD.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I'm sorry, but I do not have access to the document titled \"MMS-CMSGUY_PLAYFIELD.docx\" in the provided sources. If you can share some key details or excerpts from that document, I would be happy to help you summarize it based on that information.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "Summarize MMS-CMSGUY_PONDS.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS-CMSGUY_PONDS.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the document titled \"MMS-CMSGUY_PONDS.docx,\" so I cannot provide a summary based on that specific content. If you can provide the main points or excerpts from the document, I would be happy to help summarize or clarify that information. Alternatively, if you have questions about a particular topic related to the document, please let me know, and I will do my best to assist you.",
+    "keyword_recall": 0.125
+  },
+  {
+    "question": "Summarize MMS_cmsguy_BlackPepper.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS_cmsguy_BlackPepper.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I currently do not have access to the document titled \"MMS_cmsguy_BlackPepper.docx,\" so I cannot provide a summary of its contents. If you have specific information or excerpts from the document that you would like to discuss or summarize, please share that, and I will be happy to assist you.",
+    "keyword_recall": 0.25
+  },
+  {
+    "question": "Summarize MMS_cmsguy_Combined harvester.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS_cmsguy_Combined harvester.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The document discusses the provision of machinery for farmers in Assam, specifically focusing on the CMSGUY scheme. It outlines that the government plans to provide an 80 percent subsidy for procuring mini combine harvesters to facilitate timely harvesting and reduce operational costs. The initiative aims to distribute 126 mini combine harvesters in each Assembly Constituency of Assam during the first phase.\n\nAdditionally, the document describes the features of self-propelled combine harvesters, which are essential for modern farming. These machines combine the processes of harvesting, threshing, and winnowing into a single operation, making them efficient for grain crop harvesting.",
+    "keyword_recall": 0.25
+  },
+  {
+    "question": "Summarize MMS_cmsguy_MILLINGPADDY.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS_cmsguy_MILLINGPADDY.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the content of the document titled \"MMS_cmsguy_MILLINGPADDY.docx.\" Therefore, I cannot provide a summary. If you can share specific details or excerpts from the document, I would be happy to help summarize those sections for you.",
+    "keyword_recall": 0.125
+  },
+  {
+    "question": "Summarize MMS_cmsguy_Rice Mills.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS_cmsguy_Rice Mills.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The document titled \"MMS_cmsguy_Rice Mills\" outlines a scheme for the upgradation of rice mills in Assam. The primary objective is to provide capital subsidies for establishing mini modern rice mills and upgrading existing ones. This initiative aims to increase processing levels, reduce waste, add value, enhance farmers' incomes, and make the state self-sufficient in food grains, particularly rice.\n\nEligible beneficiaries for the capital subsidy include individuals, Self Help Groups (SHGs), cooperatives, Farmer Producer Organizations (FPOs), and partnerships, provided they register an agreement with the Assam Food & Civil Supplies Corporation Ltd. (AFCSCL) and commit to milling paddy procured under the Minimum Support Price (MSP) for five years. They are also required to mill paddy for notified procuring agencies during procurement seasons. \n\nThe document emphasizes the importance of this scheme in promoting the rice milling industry and contributing to the overall development of the food processing sector in Assam.",
+    "keyword_recall": 0.5
+  },
+  {
+    "question": "Give a brief overview of MMS_cmsguy_TRACTORS.docx.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS_cmsguy_TRACTORS.docx.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the specific document \"MMS_cmsguy_TRACTORS.docx\" and therefore cannot provide a brief overview of its contents. If you can provide the details or key points from the document, I would be happy to help you summarize or analyze that information. Alternatively, if you have questions about a specific topic related to tractors or a relevant subject, I can assist with that as well.",
+    "keyword_recall": 0.25
+  },
+  {
+    "question": "Summarize MMS_cmsguy_TUBEWELLS.DOCX.",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MMS_cmsguy_TUBEWELLS.DOCX.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "I do not have access to the document titled \"MMS_cmsguy_TUBEWELLS.DOCX\" in the provided information. Therefore, I am unable to summarize its contents. If you can provide the text or main points from that document, I would be glad to help you summarize it.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "What are the key points in OPERATIONAL GUIDELINES?",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/MOVCDNER_GUIDELINES.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The documents provided do not contain specific information regarding the \"OPERATIONAL GUIDELINES.\" Therefore, I cannot provide key points from them. \n\nHowever, if you have specific operational guidelines in mind or can provide context or a source, I may be able to assist you further based on general knowledge or additional information you provide.",
+    "keyword_recall": 0
+  },
+  {
+    "question": "What are the key points in OPERATIONAL GUIDELINES OF NATIONAL BAMBOO MISSION (2025)?",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/NBM_Guideline_2025.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The key points in the Operational Guidelines of the National Bamboo Mission (2025) include:\n\n1. **Introduction**: Bamboo is recognized for its ecological, commercial, and socio-economic importance, highlighting its unique position in the plant kingdom (Document 1).\n\n2. **Objectives of NBM**: The mission aims to promote the growth and development of the bamboo sector in India through various interventions (Document 1).\n\n3. **Strategy**: A comprehensive strategy is outlined to enhance bamboo cultivation, processing, and marketing (Document 1).\n\n4. **Mission Structure**: The operational structure of the NBM is detailed, including the roles of various stakeholders (Document 1).\n\n5. **Convergence**: Emphasis is placed on coordinating with other schemes and programs for better outcomes (Document 1).\n\n6. **Monitoring and Evaluation**: Guidelines for assessing the effectiveness of the mission's interventions are provided (Document 1).\n\n7. **Funding Pattern**: Information on how the mission will be funded, including financial support mechanisms (Document 1).\n\n8. **Mission Interventions**: Specific interventions, such as plantation development, primary processing, and infrastructure promotion for bamboo markets, are outlined (Document 1).\n\n9. **Support to North Eastern States**: Special provisions for promoting bamboo in the North Eastern region of India are included (Document 1).\n\n10. **Extension, Education, and Skill Development**: The mission focuses on building capacity through education and skill development related to bamboo (Document 1).\n\n11. **Research and Development**: Encouragement for R&D in bamboo technology and related fields is highlighted (Document 1).\n\nThese points summarize the framework and intentions of the National Bamboo Mission as outlined in the 2025 operational guidelines.",
+    "keyword_recall": 0.875
+  },
+  {
+    "question": "What are the key points in Operational Guidelines (2021-22\\* to 2025-26) (\\*Effective 1st November 2021)?",
+    "source": "/Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/NMEO-OP GUIDELINES.md",
+    "found_docs": 3,
+    "has_rag": true,
+    "answer": "The key points in the Operational Guidelines for the National Mission on Edible Oils - Oil Palm (NMEO-OP) for the period 2021-22 to 2025-26 include the following:\n\n1. **Current Status of Edible Oil Production**: India is the largest importer of edible oils, importing approximately 133.52 lakh tonnes in 2020-21, with palm oil making up about 56% of these imports. Domestic production has not kept pace with consumption, which exceeds 25 million tonnes (Document 1).\n\n2. **Support for Farmers**: The mission prioritizes small, marginal, SC/ST, and women farmers in its support and benefits. It includes provisions for local initiatives that may not be covered under the main interventions, with subsidies not exceeding 50% of the cost of those items or services (Document 2).\n\n3. **Implementation Framework**: The guidelines are applicable from 2021-22 to 2025-26 and will undergo reviews for necessary corrections. The mission encompasses various aspects of oil palm promotion, including agreements with farmers and processors, plantation support, price fixation for Fresh Fruit Bunches (FFBs), and special packages for North East states (Document 3).\n\n4. **Quality of Planting Material**: The quality of planting materials and management practices is emphasized as a critical factor in enhancing productivity and production of FFBs (Document 3).\n\nThese points highlight the mission's objectives to improve domestic edible oil production through support for farmers and enhancement of oil palm cultivation practices.",
+    "keyword_recall": 0.25
+  }
+]

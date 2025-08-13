@@ -1,0 +1,106 @@
+# RAG Evaluation Report
+
+Total questions evaluated: 50
+Average keyword recall: 0.362
+
+## Samples
+- Q: Give a brief overview of **CM Dr. Sarma ceremoniously launches Assam Logistics and Ware Housing Policy 2022 State Govt sings two MoUs for MSME and entrepreneur sector**.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/ALWP-PR-cm-launches_policy_19.09.2022.docx.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.75
+- Q: Summarize **ASSAM SECRETARIAT(CIVIL) DISPUR, GUWAHATI-781006**.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/ALWP-logistics_warehousing_policy_operational_guidelines.docx.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.75
+- Q: Summarize AGRI VISION 2025.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/ASSAM AGRI VISION 2025.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.75
+- Q: Give a brief overview of **ASSAM LOGISTICS AND WAREHOUSING POLICY, 2022**.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/AWLP-assamlogistics_and_warehousing_policy-2022.docx.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.5
+- Q: Summarize **Table of Contents**.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Amrit Brikshya Andolan.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0
+- Q: Summarize CHAPTER 1.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Amrit_Sarovar_December_2023.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.125
+- Q: Summarize THE ASSAM AGRICULTURAL ENGINEERING.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam Agricultural Engineering Service Rules.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.25
+- Q: Give a brief overview of ***AGRICULTURAL DRAFT POLICY, ASSAM***.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam Agriculture Policy prepared by AAU.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.875
+- Q: Summarize **Check list**.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam Horticulture.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0
+- Q: Give a brief overview of Assam Paddy And Rice Procurement (Levy & Licensing) Permanent Order, 1995.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam Paddy And Rice Procurement (Levy & Licensing) Permanent Order, 1995.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0
+- Q: Give a brief overview of STATE AGRICULTURE POLICY,ASSAM.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam State Agricultural Policy.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.625
+- Q: What are the key points in **OPERATIONAL GUIDELINES OF** **THE ASSAM BAMBOO AND CANE POLICY, 2019**?
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Assam_bamboo_and_cane_policy_2021.docx.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.625
+- Q: Summarize Availability of Foundation Seeds in ASC Farms.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Availability of Foundation Seeds in ASC Farms.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.75
+- Q: Summarize Block Resource Centre (BRC).
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Block Resource Centre (BRC).md
+  - Docs found: 3, RAG used: true
+  - Recall: 0
+- Q: Give a brief overview of CM Floriculture Mission.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/CM Floriculture Mission.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.375
+- Q: Summarize CM_PR_2023.docx.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/CM_PR_2023.docx.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0
+- Q: Give a brief overview of Chief Minister's Floriculture Mission Assam.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Chief Minister's Floriculture Mission Assam.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.625
+- Q: Summarize Departmental Seed Farm & Nursery.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Departmental Seed Farm & Nursery.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.625
+- Q: Summarize District wise Development Blocks & sub-div in Assam.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/District wise Development Blocks & sub-div in Assam.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.875
+- Q: Summarize **DISTRICT-WISE FERTILIZER STATUS IN ASSAM AS ON 02-11-2021**.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/District-wise Fertilizer status in Assam.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.875
+- Q: Summarize **GOVERNMENT OF ASSAM**.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/ECA_the_assam_public_distribution_of_articles_amendment_order_2025.docx.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.125
+- Q: What are the key points in **0PERATIONAL GUIDELINES**?
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Equity-Grant-Scheme-and-Credit-Guarantee-Fund.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.25
+- Q: Summarize Farmer's Information and Advisory Centre (FIAC).
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Farmer's Information and Advisory Centre (FIAC).md
+  - Docs found: 3, RAG used: true
+  - Recall: 0
+- Q: Summarize Field Trial Station (FTS).
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Field Trial Station (FTS).md
+  - Docs found: 3, RAG used: true
+  - Recall: 1
+- Q: Summarize Food Processing scenario of Assam.
+  - Source: /Users/rahulbarman/Documents/Coding/Herbarium/vocalpipe/datasets/Assam Law and Policy/Food Processing scenario of Assam.md
+  - Docs found: 3, RAG used: true
+  - Recall: 0.875
