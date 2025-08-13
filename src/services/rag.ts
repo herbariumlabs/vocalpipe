@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from "fs";
+import { readFileSync, readdirSync, lstatSync } from "fs";
 import { join, extname } from "path";
 import { Document } from "@langchain/core/documents";
 
@@ -63,6 +63,7 @@ class EnhancedSearchEngine {
     private documents: DocumentChunk[] = [];
     private vocabulary: Set<string> = new Set();
     private phraseIndex: Map<string, Set<number>> = new Map();
+    private wordIndex: Map<string, Set<number>> = new Map();
     private termFrequency: Map<string, Map<string, number>> = new Map();
     private documentFrequency: Map<string, number> = new Map();
     private idf: Map<string, number> = new Map();
@@ -185,6 +186,7 @@ class EnhancedSearchEngine {
         this.documents = documents;
         this.vocabulary.clear();
         this.phraseIndex.clear();
+        this.wordIndex.clear();
         this.termFrequency.clear();
         this.documentFrequency.clear();
         this.idf.clear();
@@ -207,6 +209,15 @@ class EnhancedSearchEngine {
                     this.phraseIndex.set(phrase, new Set());
                 }
                 this.phraseIndex.get(phrase)!.add(i);
+            });
+
+            // Build word inverted index (stemmed)
+            const uniqueStemmedWords = new Set(stemmedWords);
+            uniqueStemmedWords.forEach((term) => {
+                if (!this.wordIndex.has(term)) {
+                    this.wordIndex.set(term, new Set());
+                }
+                this.wordIndex.get(term)!.add(i);
             });
 
             // Add to vocabulary and track document frequency
@@ -241,7 +252,31 @@ class EnhancedSearchEngine {
             docIndex: number;
         }> = [];
 
-        for (let i = 0; i < this.documents.length; i++) {
+        // Candidate generation using inverted indices for scalability
+        const candidateIndices = new Set<number>();
+        for (const term of stemmedWords) {
+            const posting = this.wordIndex.get(term);
+            if (posting) posting.forEach((idx) => candidateIndices.add(idx));
+        }
+        for (const phrase of phrases) {
+            const posting = this.phraseIndex.get(phrase);
+            if (posting) posting.forEach((idx) => candidateIndices.add(idx));
+        }
+
+        // Fallback to a capped random sample if no candidates from indices
+        if (candidateIndices.size === 0) {
+            const cap = Math.min(1000, this.documents.length);
+            for (let i = 0; i < cap; i++) candidateIndices.add(i);
+        }
+
+        // Optional cap on candidates to keep search fast on huge corpora
+        const MAX_CANDIDATES = 5000;
+        const candidates = Array.from(candidateIndices).slice(
+            0,
+            MAX_CANDIDATES
+        );
+
+        for (const i of candidates) {
             let score = 0;
             const tf = this.termFrequency.get(i.toString()) || new Map();
 
@@ -341,7 +376,8 @@ export class RAGService {
             chunkOverlap: 200,
         });
 
-        this.documentsPath = join(process.cwd(), "documents");
+        // Load knowledge base from the new datasets directory
+        this.documentsPath = join(process.cwd(), "datasets");
     }
 
     async initialize(): Promise<void> {
@@ -367,9 +403,11 @@ export class RAGService {
         const documents: Document[] = [];
 
         try {
+            const visited = new Set<string>();
             await this.loadDocumentsFromDirectory(
                 this.documentsPath,
-                documents
+                documents,
+                visited
             );
         } catch (error) {
             console.warn(
@@ -382,7 +420,9 @@ export class RAGService {
         const chunks: Document[] = [];
         for (const doc of documents) {
             const splitDocs = await this.textSplitter.splitDocuments([doc]);
-            chunks.push(...splitDocs);
+            for (const c of splitDocs) {
+                chunks.push(c);
+            }
         }
 
         // Convert to our internal format (NO EMBEDDINGS!)
@@ -401,16 +441,39 @@ export class RAGService {
 
     private async loadDocumentsFromDirectory(
         dirPath: string,
-        documents: Document[]
+        documents: Document[],
+        visited: Set<string>
     ): Promise<void> {
-        const files = readdirSync(dirPath);
+        if (visited.has(dirPath)) return;
+        visited.add(dirPath);
+
+        let files: string[] = [];
+        try {
+            files = readdirSync(dirPath);
+        } catch (e) {
+            console.warn(`⚠️ Cannot read directory ${dirPath}:`, e);
+            return;
+        }
 
         for (const file of files) {
             const filePath = join(dirPath, file);
-            const stat = statSync(filePath);
+            let lst;
+            try {
+                lst = lstatSync(filePath);
+            } catch (e) {
+                console.warn(`⚠️ Cannot stat ${filePath}:`, e);
+                continue;
+            }
 
-            if (stat.isDirectory()) {
-                await this.loadDocumentsFromDirectory(filePath, documents);
+            // Skip symlinks to avoid cycles
+            if (lst.isSymbolicLink()) continue;
+
+            if (lst.isDirectory()) {
+                await this.loadDocumentsFromDirectory(
+                    filePath,
+                    documents,
+                    visited
+                );
             } else if (this.isSupportedFile(file)) {
                 try {
                     const content = this.loadFileContent(filePath);
