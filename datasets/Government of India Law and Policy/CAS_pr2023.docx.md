@@ -1,0 +1,15 @@
+
+
+Ministry of Environment, Forest and Climate Change
+
+# Fund utilisation of Compensatory Afforestation Fund Management and Planning Authority
+
+Posted On: 18 DEC 2023 4:52PM by PIB Delhi
+
+The Compensatory Afforestation Fund Act, 2016 (CAF Act) provides the legal framework for compensating the loss of forest and ecosystem services due to diversion of forest land for non- forestry purposes as per provisions of the Forest (Conservation) Act, 1980\. The CAMPA funds including Net Present Value (NPV) are received from various user agencies as compensatory levies in lieu of diversion of forest land and are project specific. The Compensatory Afforestation Fund Rules, 2018 (CAF Rules) provide the manner in which NPV funds are to be utilised by various State/Union Territory (UT) Compensatory Afforestation Fund Management and Planning Authority (CAMPA).
+
+The CAMPA funds are special and additional funds for compensating the loss of forest land and ecosystem services and are not meant to replace normal State funds. NPV funds aim at holistic ecological restoration of degraded forests, create/enrich more forests, improve the quality of forest cover and wildlife habitat, conservation of biodiversity and enhancement of ecosystem services. The States/UTs CAMPA prepare Annual Plan of Operations for carrying out afforestation and various activities for improvement of forest and wildlife habitat in accordance with the provisions of CAF Act & CAF Rules including the activities for utilisation of NPV fund.
+
+The NPV fund available with most of the States/ UTs is limited and is likely to be exhausted if used without due diligence and proper planning. Since the ecological restoration of degraded forests require systematic and continuous efforts with adequate financial resources for long period of time, a perspective plan for effective utilisation of NPV funds is necessary. Therefore, the National (CAMPA) Authority issues guidelines/directions to State/UT Authorities from time to time including preparation of a perspective plan to rationalise fund utilisation within a given time frame with an identified physically achievable target. The States/UTs are advised to identify and plan activities of ecological restoration viz. Assisted Natural/ Artificial Regeneration, soil & water conservation measures, silvicultural operations, removal of invasive species etc. and ensure continuous flow of funds for subsequent years towards creation and maintenance and avoid utilising this fund for non- essential activities.
+
+Therefore, the State/UT CAMPA Authorities have been advised to prepare their perspective plan to strengthen efforts for conservation and improvement of forest and wildlife habitats in the country. The States and UT Authorities including Maharashtra are preparing their Annual Plan of Operations accordingly with a yearly limit of 15-20% on NPV Funds available with them. This will ensure regular flow of NPV funds for maintenance of plantations, soil moisture conservation and other related forest and wildlife habitat improvement activities

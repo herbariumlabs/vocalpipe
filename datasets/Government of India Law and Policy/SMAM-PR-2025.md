@@ -1,0 +1,25 @@
+Ministry of Agriculture & Farmers Welfare
+
+Promotion of New Technologies in Agriculture
+
+  Posted On: 04 APR 2025 3:51PM by PIB Delhi
+
+The Sub-Mission on Agricultural Mechanization’ (SMAM), one of the Centrally Sponsored components of the Rashtriya Krishi Vikas Yojana (RKVY) is implemented through the State Governments. Under SMAM, financial assistance is provided to the farmers for purchase of various agricultural machines and equipments including the post-harvest and processing technologies on individual ownership basis. Financial assistance is also provided for establishment of Custom Hiring Centres (CHCs) and Village Level Farm Machinery Banks (FMBs) in order to provide machines and equipments to the farmers on rental basis as per their requirements. Financial assistance under SMAM is also provided for demonstration of kisan drones on farmers’ fields, purchase of drones by the farmers on individual ownership basis and establishment of Custom Hiring Centres of Kisan drones for providing services of drones to farmers for agriculture purpose.
+
+The Government has approved Central Sector Scheme 'NAMO DRONE DIDI' for providing 15,000 Drones to the Women Self Help Groups (SHGs), during the period of 3 years (2023-24 to 2025-26) with a view to provide sustainable business and livelihood support to them. Lead Fertilizer Companies (LFCs) have distributed 1094 drones to drone didis of SHGs in 2023-24 using their internal resources. Out of these 1094 drone distributed to drone didis, 500 drones have been distributed under the Namo Drone Didi Scheme. The remaining 14500 drones under the scheme has been targeted to be distributed by the end of financial year 2025-26.
+
+The Government has approved the Digital Agriculture Mission in September 2024 with an outlay of Rs. 2817 Crore. The Mission seeks to enable a robust digital agriculture ecosystem in the country for driving innovative farmer-centric digital solutions and making available timely and reliable crop-related information to all the farmers in the country. The Mission envisages the creation of Digital Public Infrastructure for Agriculture such as Agristack, Krishi Decision Support System, Comprehensive Soil Fertility & Profile Map and other IT initiatives undertaken by Central/State Governments. ‘Kisan e-Mitra’ an Artificial Intelligence (AI) powered chatbot has been developed to assist farmers with responses to queries about the PM Kisan Samman Nidhi Scheme
+
+The Institutes under the Indian Council of Agricultural Research (ICAR) are conducting research on drone spraying systems and droplet deposition characteristics with the objectives of enhancing the efficiency and effectiveness of pesticide and liquid fertilizer applications. An AI enabled mobile device has been developed for real time identification of abiotic stress in field crops, which assist crop breeding and precision crop input management. The institutes have also developed different precision farming technologies such as Smart sprayer for pomegranate young orchards, Automatic Spraying System for Polyhouse, Lab based robotic transplanter for plug-type vegetable seedlings, Unmanned multi-purpose track-type vehicle, Autonomous weeder for wide spaced field crops, Robotic harvester for poly-house cultivated tomatoes, Image based automatic hand held diseases identification device for soybean by application of deep learning, Image based variable-rate nitrogen applicator, Controller based feed dispensing system for poultry, Water Stress Indices using Spectral Reflectance and Thermal Imaging in Field Crops, Deep placement fertilizer applicator as an attachment to rice transplanter etc.
+
+Soil Health & Fertility Scheme is implemented by the Government since 2014-2015, wherein Soil Health Cards (SHCs) are issued to farmers to improve the health of the soil. SHCs encourage judicious use of fertilizer, secondary micronutrients along with organic manures & bio-fertilizers. Soil samples are processed through standard procedures and analyzed for 12 parameters viz. pH, electrical conductivity, Organic Carbon, available Nitrogen, Phosphorus, Potassium, Sulphur, and micronutrients (Zinc, Coper, Iron, Manganese & Boron). SHCs provide information on nutrient status of soil and recommendations on appropriate dosage & type of fertilizers for improving soil health and its fertility. Since 2014-15 and as on 31 March 2025, 24.90
+
+Crore SHCs have been generated across the country. Under the scheme, 1068 Static Soil Testing Laboratories, 163 Mobile Soil Testing Laboratories, 6376 Mini Soil Testing Laboratories and 665 Village Level Soil Testing Laboratories have been established across the country. To educate farmers, around 7.0 lakh demonstrations, 93781 farmer’s training programmes and 7425 farmer’s mela have been organized across the country. In addition, 70002 Krishi Sakhis are trained to support farmers in understanding SHCs.
+
+This information was given by the Minister of State for Agriculture and Farmers’ Welfare Shri Ramnath Thakur in a written reply in Rajya Sabha today.
+
+*****
+
+  PSF/AR/3854
+
+(Release ID: 2118770)
