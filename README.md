@@ -13,6 +13,7 @@ Advanced multilingual voice and text AI bot with dual language support and RAG (
 - 🔄 **Real-time Translation**: Seamless translation between Hindi and English
 - 📱 **Telegram Integration**: Easy-to-use Telegram bot interface
 - 📊 **Analytics**: Comprehensive PostHog analytics for user tracking and bot performance
+- 🔍 **Error Monitoring**: Full Sentry integration for error tracking and performance monitoring
 - 💰 **Cost-Optimized**: Local search eliminates expensive embedding costs
 
 ## New RAG Capabilities
@@ -80,6 +81,13 @@ OPENAI_API_KEY=your_openai_api_key_here
 POSTHOG_API_KEY=your_posthog_api_key_here
 POSTHOG_HOST=https://us.i.posthog.com
 
+# Optional: Error Monitoring (Sentry)
+SENTRY_DSN=your_sentry_dsn_here
+SENTRY_ENVIRONMENT=development
+SENTRY_ENABLE_PROFILING=true
+SENTRY_TRACES_SAMPLE_RATE=1.0
+SENTRY_PROFILES_SAMPLE_RATE=1.0
+
 NODE_ENV=development
 ```
 
@@ -130,7 +138,6 @@ npm run test:watch
 ## Adding Documents to RAG
 
 1. Place documents in the appropriate `datasets/` subdirectory:
-
     - `datasets/Assam Law and Policy/` for Assam-specific content
     - `datasets/Government of India Law and Policy/` for central content
 
@@ -172,6 +179,9 @@ datasets/           # RAG knowledge base
 - **FFmpeg** - Audio processing
 - **Jest** - Testing framework
 - **TF-IDF** - Local document search (cost-optimized)
+- **Sentry** - Error tracking and performance monitoring
+- **Prisma** - Database ORM for PostgreSQL
+- **PostHog** - Product analytics
 
 ## RAG System Details
 
@@ -216,6 +226,26 @@ Current system handles:
 - **Zero embedding costs** with local search
 - **Average 785ms** response time per query
 - **100% success rate** in document retrieval
+
+## Monitoring & Observability
+
+VocalPipe includes comprehensive monitoring with Sentry:
+
+- **Error Tracking**: Automatic capture of all errors with full context
+- **Performance Monitoring**: Track response times, database queries, and API calls
+- **Profiling**: CPU and memory profiling to identify bottlenecks
+- **User Context**: Track which users encounter issues
+- **Breadcrumbs**: Detailed debugging trails for every error
+- **Custom Metrics**: Track RAG performance, processing times, and more
+
+See [SENTRY_INTEGRATION.md](docs/SENTRY_INTEGRATION.md) for detailed documentation.
+
+### Testing Sentry Integration
+
+```bash
+# Run Sentry integration tests
+npm run test:sentry
+```
 
 ## Contributing
 
