@@ -13,6 +13,11 @@ export const config: AppConfig = {
     posthogApiKey: process.env.POSTHOG_API_KEY,
     posthogHost: process.env.POSTHOG_HOST || "https://us.i.posthog.com",
     databaseUrl: process.env.DATABASE_URL,
+    sentryDsn: process.env.SENTRY_DSN,
+    sentryEnvironment: process.env.SENTRY_ENVIRONMENT || "development",
+    sentryEnableProfiling: process.env.SENTRY_ENABLE_PROFILING === "true",
+    sentryTracesSampleRate: parseFloat(process.env.SENTRY_TRACES_SAMPLE_RATE || "1.0"),
+    sentryProfilesSampleRate: parseFloat(process.env.SENTRY_PROFILES_SAMPLE_RATE || "1.0"),
 };
 
 export const validateConfig = (): void => {

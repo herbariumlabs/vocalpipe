@@ -25,10 +25,7 @@
         "db:push": "prisma db push",
         "db:pull": "prisma db pull",
         "rag:generate-tests": "ts-node scripts/generate_rag_tests.ts",
-        "rag:evaluate": "ts-node scripts/evaluate_rag.ts",
-        "test:sentry": "ts-node src/test-sentry.ts",
-        "test:sentry:live": "ts-node src/test-sentry-live.ts",
-        "test:integration": "ts-node src/test-integration-complete.ts"
+        "rag:evaluate": "ts-node scripts/evaluate_rag.ts"
     },
     "keywords": [
         "telegram",

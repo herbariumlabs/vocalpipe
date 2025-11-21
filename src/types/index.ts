@@ -166,4 +166,9 @@ export interface AppConfig {
     posthogApiKey?: string;
     posthogHost?: string;
     databaseUrl?: string;
+    sentryDsn?: string;
+    sentryEnvironment?: string;
+    sentryEnableProfiling?: boolean;
+    sentryTracesSampleRate?: number;
+    sentryProfilesSampleRate?: number;
 }

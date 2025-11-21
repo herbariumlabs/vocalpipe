@@ -1,10 +1,12 @@
 import { Telegraf, Context } from "telegraf";
 import { createReadStream } from "fs";
+import { logger } from "../services/logger";
 import { BhashiniService } from "../services/bhashini";
 import { OpenAIService } from "../services/openai";
 import { UserStateService } from "../services/userState";
 import { EnhancedProcessorService } from "../services/enhancedProcessor";
 import { EnhancedAnalyticsService } from "../services/enhancedAnalytics";
+import { sentryService } from "../services/sentry";
 import { cleanupFiles, ensureDirectoryExists } from "../utils/file";
 import { config } from "../config";
 import { InputType } from "../types";
@@ -48,7 +50,37 @@ export class BotController {
         this.bot.catch(async (err, ctx) => {
             console.error("❌ Bot Error:", err);
 
-            // Track error
+            logger.error("Bot error caught", {
+                error: err instanceof Error ? err.message : String(err),
+                userId: ctx.from?.id,
+                chatId: ctx.chat?.id,
+                updateType: ctx.updateType,
+            });
+
+            // Set user context for Sentry
+            if (ctx.from) {
+                sentryService.setUser({
+                    id: ctx.from.id,
+                    username: ctx.from.username,
+                    firstName: ctx.from.first_name,
+                    lastName: ctx.from.last_name,
+                });
+            }
+
+            // Capture error in Sentry
+            sentryService.captureException(err, {
+                tags: {
+                    error_type: "bot_error",
+                    context: "bot_catch_handler",
+                },
+                extra: {
+                    chatId: ctx.chat?.id,
+                    messageId: ctx.message?.message_id,
+                    updateType: ctx.updateType,
+                },
+            });
+
+            // Track error in analytics
             await this.analyticsService.trackError({
                 ...this.analyticsService.createUserEvent(ctx),
                 errorType: "bot_error",
@@ -62,25 +94,67 @@ export class BotController {
     }
 
     async launch(): Promise<void> {
-        try {
-            await this.processorService.initialize();
+        logger.info("Bot controller launching");
 
-            await this.bot.launch();
-            console.log("🤖 VocalPipe Bot is running!");
-        } catch (error) {
-            console.error("❌ Failed to launch bot:", error);
-            throw error;
-        }
+        return await sentryService.trackOperation(
+            "bot.launch",
+            async () => {
+                await this.processorService.initialize();
+                await this.bot.launch();
+                console.log("🤖 VocalPipe Bot is running!");
+
+                logger.info("Bot launched successfully");
+            },
+            {
+                tags: {
+                    component: "bot_controller",
+                    operation: "launch",
+                },
+            }
+        );
     }
 
     async stop(): Promise<void> {
+        logger.info("Bot controller stopping");
+
+        sentryService.addBreadcrumb({
+            message: "Bot stopping",
+            category: "lifecycle",
+            level: "info",
+        });
+
         await this.analyticsService.shutdown();
         this.bot.stop();
+
+        // Flush Sentry events
+        await sentryService.flush(2000);
+
+        logger.info("Bot stopped successfully");
     }
 
     private async handleStart(ctx: Context): Promise<void> {
         const userId = ctx.from?.id;
         if (!userId) return;
+
+        logger.info(logger.fmt`User started bot: ${userId}`, {
+            userId,
+            username: ctx.from?.username,
+        });
+
+        // Set user context in Sentry
+        sentryService.setUser({
+            id: userId,
+            username: ctx.from?.username,
+            firstName: ctx.from?.first_name,
+            lastName: ctx.from?.last_name,
+        });
+
+        sentryService.addBreadcrumb({
+            message: "User started bot",
+            category: "user_action",
+            level: "info",
+            data: { userId },
+        });
 
         this.userStateService.setUserSettings(userId, {
             input: "hindi",
@@ -147,15 +221,29 @@ export class BotController {
             );
 
             await ctx.reply(
-                `📚 RAG Knowledge Base Statistics:\n\n` +
-                    `📄 Total Documents: ${stats.totalDocuments}\n` +
-                    `📝 Total Chunks: ${stats.totalChunks}\n\n` +
+                `RAG Knowledge Base Statistics:\n\n` +
+                    `Total Documents: ${stats.totalDocuments}\n` +
+                    `Total Chunks: ${stats.totalChunks}\n\n` +
                     `The system will search through these documents first before using general knowledge to answer your questions.`
             );
         } catch (error) {
-            console.error("❌ Error getting RAG stats:", error);
+            console.error("Error getting RAG stats:", error);
 
-            // Track error
+            logger.error("Failed to get RAG stats", {
+                userId: ctx.from?.id,
+                error: error instanceof Error ? error.message : "Unknown error",
+            });
+
+            // Capture error in Sentry
+            sentryService.captureException(error, {
+                tags: {
+                    error_type: "rag_stats_error",
+                    user_id: String(ctx.from?.id),
+                },
+                level: "error",
+            });
+
+            // Track error in analytics
             await this.analyticsService.trackError({
                 ...this.analyticsService.createUserEvent(ctx),
                 errorType: "rag_stats_error",
@@ -521,9 +609,8 @@ export class BotController {
         const settings = this.userStateService.getUserSettings(userId);
         const { inputFlag, outputFlag } =
             this.userStateService.getLanguageFlags(settings);
-        const inputIcon = "🎤";
 
-        const thinkingMessage = await ctx.reply("💬 Thinking...");
+        const thinkingMessage = await ctx.reply("Thinking...");
 
         try {
             const result = await this.processorService.processVoiceMessage(
@@ -533,10 +620,37 @@ export class BotController {
             );
             await this.sendAudioResponse(ctx, userId, result, "voice");
             await ctx.deleteMessage(thinkingMessage.message_id);
+
+            logger.info("Voice message processed successfully", {
+                userId,
+                inputLanguage: settings.input,
+                outputLanguage: settings.output,
+            });
         } catch (error) {
             console.error("Voice processing error:", error);
 
-            // Track error
+            logger.error("Voice processing failed", {
+                userId,
+                error: error instanceof Error ? error.message : "Unknown error",
+                inputLanguage: settings.input,
+            });
+
+            // Capture error in Sentry with full context
+            sentryService.captureException(error, {
+                tags: {
+                    error_type: "voice_processing_error",
+                    user_id: String(userId),
+                    input_language: settings.input,
+                    output_language: settings.output,
+                },
+                extra: {
+                    fileId,
+                    fileLink: fileLink.href,
+                },
+                level: "error",
+            });
+
+            // Track error in analytics
             await this.analyticsService.trackError({
                 ...this.analyticsService.createUserEvent(ctx),
                 errorType: "voice_processing_error",
