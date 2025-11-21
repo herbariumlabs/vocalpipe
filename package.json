@@ -25,7 +25,10 @@
         "db:push": "prisma db push",
         "db:pull": "prisma db pull",
         "rag:generate-tests": "ts-node scripts/generate_rag_tests.ts",
-        "rag:evaluate": "ts-node scripts/evaluate_rag.ts"
+        "rag:evaluate": "ts-node scripts/evaluate_rag.ts",
+        "test:sentry": "ts-node src/test-sentry.ts",
+        "test:sentry:live": "ts-node src/test-sentry-live.ts",
+        "test:integration": "ts-node src/test-integration-complete.ts"
     },
     "keywords": [
         "telegram",
@@ -46,6 +49,8 @@
         "@langchain/core": "^0.3.0",
         "@langchain/openai": "^0.3.0",
         "@prisma/client": "^6.13.0",
+        "@sentry/node": "^9.41.0",
+        "@sentry/profiling-node": "^9.41.0",
         "dotenv": "^16.4.5",
         "fluent-ffmpeg": "^2.1.2",
         "node-fetch": "^3.3.2",
