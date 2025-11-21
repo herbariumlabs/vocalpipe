@@ -1,10 +1,12 @@
 import { writeFileSync } from "fs";
 import fetch from "node-fetch";
+import { logger } from "./logger";
 import { BhashiniService } from "./bhashini";
 import { OpenAIService } from "./openai";
 import { UserStateService } from "./userState";
 import { EnhancedAnalyticsService } from "./enhancedAnalytics";
 import { databaseService, InputType as DBInputType } from "./database";
+import { sentryService } from "./sentry";
 import {
     convertOgaToWav,
     convertWavToOgg,
@@ -39,14 +41,36 @@ export class EnhancedProcessorService {
     async initialize(): Promise<void> {
         if (this.initialized) return;
 
-        console.log("🔄 Initializing Enhanced ProcessorService with RAG...");
-        await this.openaiService.initialize();
-        this.initialized = true;
+        return await sentryService.trackOperation(
+            "processor.initialize",
+            async () => {
+                console.log(
+                    "🔄 Initializing Enhanced ProcessorService with RAG..."
+                );
+                await this.openaiService.initialize();
+                this.initialized = true;
 
-        // Log RAG statistics
-        const stats = this.openaiService.getRAGStats();
-        console.log(
-            `📊 RAG Stats: ${stats.totalDocuments} documents, ${stats.totalChunks} chunks`
+                // Log RAG statistics
+                const stats = this.openaiService.getRAGStats();
+                console.log(
+                    `📊 RAG Stats: ${stats.totalDocuments} documents, ${stats.totalChunks} chunks`
+                );
+
+                sentryService.addBreadcrumb({
+                    message: "Processor service initialized",
+                    category: "initialization",
+                    level: "info",
+                    data: {
+                        ragDocuments: stats.totalDocuments,
+                        ragChunks: stats.totalChunks,
+                    },
+                });
+            },
+            {
+                tags: {
+                    component: "processor_service",
+                },
+            }
         );
     }
 
@@ -55,8 +79,46 @@ export class EnhancedProcessorService {
         fileLink: string,
         ctx?: any
     ): Promise<ProcessingResult> {
-        await this.initialize();
+        return await sentryService.startSpan(
+            {
+                name: "process_voice_message",
+                op: "voice.process",
+                description: `Process voice message for user ${userId}`,
+            },
+            async (span) => {
+                if (span) {
+                    span.setAttribute("user_id", userId);
+                    span.setAttribute(
+                        "input_language",
+                        this.userStateService.getUserSettings(userId).input
+                    );
+                }
 
+                logger.info(
+                    logger.fmt`Processing voice message for user ${userId}`,
+                    {
+                        userId,
+                        inputLanguage:
+                            this.userStateService.getUserSettings(userId).input,
+                    }
+                );
+
+                await this.initialize();
+
+                return await this.processVoiceMessageInternal(
+                    userId,
+                    fileLink,
+                    ctx
+                );
+            }
+        );
+    }
+
+    private async processVoiceMessageInternal(
+        userId: number,
+        fileLink: string,
+        ctx?: any
+    ): Promise<ProcessingResult> {
         const settings = this.userStateService.getUserSettings(userId);
         const uid = generateUniqueId();
         const { ogaPath, wavPath } = generateFilePaths(uid);
@@ -73,6 +135,8 @@ export class EnhancedProcessorService {
                     await this.analyticsService.createDatabaseUserEvent(ctx);
             }
 
+            logger.debug("Downloading and converting audio", { uid });
+
             // Download and convert audio
             const response = await fetch(fileLink);
             const buffer = await response.buffer();
@@ -81,11 +145,31 @@ export class EnhancedProcessorService {
             await convertOgaToWav(ogaPath, wavPath);
             const audioBase64 = readFileAsBase64(wavPath);
 
+            logger.debug("Audio converted successfully", {
+                audioSize: buffer.length,
+            });
+
             // Speech-to-Text
+            logger.info("Starting speech-to-text", {
+                language: settings.input,
+            });
+
             const sttStartTime = Date.now();
-            const recognizedText = await this.bhashiniService.speechToText(
-                audioBase64,
-                settings.input
+            const recognizedText = await sentryService.startSpan(
+                {
+                    name: "bhashini.speech_to_text",
+                    op: "ai.stt",
+                    description: `Speech-to-text: ${settings.input}`,
+                },
+                async (span) => {
+                    if (span) {
+                        span.setAttribute("language", settings.input);
+                    }
+                    return await this.bhashiniService.speechToText(
+                        audioBase64,
+                        settings.input
+                    );
+                }
             );
             const sttTime = Date.now() - sttStartTime;
 
@@ -93,6 +177,13 @@ export class EnhancedProcessorService {
                 `🗣 ${settings.input.toUpperCase()} STT:`,
                 recognizedText
             );
+
+            logger.info("Speech-to-text completed", {
+                language: settings.input,
+                textLength: recognizedText.length,
+                processingTime: sttTime,
+                text: recognizedText.substring(0, 100),
+            });
 
             // Log the voice message to database
             if (dbUserEvent) {
@@ -135,7 +226,25 @@ export class EnhancedProcessorService {
                 processingTimeMs: sttTime + result.processingTimeMs,
             };
         } catch (error) {
-            // Log error
+            logger.error("Voice message processing failed", {
+                userId,
+                error: error instanceof Error ? error.message : "Unknown error",
+            });
+
+            // Capture error in Sentry
+            sentryService.captureException(error, {
+                tags: {
+                    error_type: "processing_error",
+                    user_id: String(userId),
+                    operation: "voice_processing",
+                },
+                extra: {
+                    fileLink,
+                },
+                level: "error",
+            });
+
+            // Track error in analytics
             await this.analyticsService.trackError({
                 userId,
                 errorType: "processing_error",
@@ -156,6 +265,14 @@ export class EnhancedProcessorService {
         existingMessageId?: string | null,
         priorProcessingTime: number = 0
     ): Promise<ProcessingResult> {
+        logger.info(logger.fmt`Processing text input for user ${userId}`, {
+            userId,
+            textLength: inputText.length,
+            inputLanguage: this.userStateService.getUserSettings(userId).input,
+            outputLanguage:
+                this.userStateService.getUserSettings(userId).output,
+        });
+
         await this.initialize();
 
         const settings = this.userStateService.getUserSettings(userId);

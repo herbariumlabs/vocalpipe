@@ -1,3 +1,4 @@
+import { logger } from "./logger";
 import { PrismaClient } from "../../dist/generated/prisma";
 import {
     Language,
@@ -6,6 +7,7 @@ import {
     ErrorType,
 } from "../../dist/generated/prisma";
 import { UserLanguageSettings } from "../types";
+import { sentryService } from "./sentry";
 
 // Re-export Prisma types for convenience
 export {
@@ -126,18 +128,41 @@ export class DatabaseService {
     }
 
     async connect(): Promise<void> {
-        try {
-            await this.prisma.$connect();
-            console.log("📊 Database connected successfully");
-        } catch (error) {
-            console.error("❌ Failed to connect to database:", error);
-            throw error;
-        }
+        logger.info("Connecting to database");
+
+        return await sentryService.trackDatabaseQuery(
+            "connect",
+            async () => {
+                await this.prisma.$connect();
+                console.log("📊 Database connected successfully");
+
+                logger.info("Database connected successfully");
+
+                sentryService.addBreadcrumb({
+                    message: "Database connected",
+                    category: "database",
+                    level: "info",
+                });
+            },
+            {
+                operation: "connect",
+            }
+        );
     }
 
     async disconnect(): Promise<void> {
+        logger.info("Disconnecting from database");
+
+        sentryService.addBreadcrumb({
+            message: "Database disconnecting",
+            category: "database",
+            level: "info",
+        });
+
         await this.prisma.$disconnect();
         console.log("📊 Database disconnected");
+
+        logger.info("Database disconnected successfully");
     }
 
     // Helper function to convert string language to enum
