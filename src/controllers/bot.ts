@@ -1,11 +1,15 @@
 import { Telegraf, Context } from "telegraf";
 import { createReadStream } from "fs";
+import { writeFileSync } from "fs";
+import * as path from "path";
+import fetch from "node-fetch";
 import { logger } from "../services/logger";
 import { BhashiniService } from "../services/bhashini";
 import { OpenAIService } from "../services/openai";
 import { UserStateService } from "../services/userState";
 import { EnhancedProcessorService } from "../services/enhancedProcessor";
 import { EnhancedAnalyticsService } from "../services/enhancedAnalytics";
+import { yoloService } from "../services/yolo";
 import { sentryService } from "../services/sentry";
 import { cleanupFiles, ensureDirectoryExists } from "../utils/file";
 import { config } from "../config";
@@ -18,6 +22,7 @@ export class BotController {
     private userStateService: UserStateService;
     private processorService: EnhancedProcessorService;
     private analyticsService: EnhancedAnalyticsService;
+    private pendingImages: Map<number, string> = new Map();
 
     constructor() {
         this.bot = new Telegraf(config.telegramBotToken);
@@ -44,6 +49,7 @@ export class BotController {
         );
         this.bot.command("rag_stats", this.handleRAGStats.bind(this));
         this.bot.on("callback_query", this.handleCallbackQuery.bind(this));
+        this.bot.on("photo", this.handlePhotoMessage.bind(this));
         this.bot.on("voice", this.handleVoiceMessage.bind(this));
         this.bot.on("text", this.handleTextMessage.bind(this));
 
@@ -282,6 +288,12 @@ export class BotController {
         if (!userId) return;
 
         switch (data) {
+            case "ml_maturity":
+                await this.handleMaturityDetection(ctx);
+                break;
+            case "ml_disease":
+                await this.handleDiseaseClassification(ctx);
+                break;
             case "select_input":
                 await this.handleSelectInput(ctx);
                 break;
@@ -593,6 +605,227 @@ export class BotController {
         if (!userId) return;
 
         await this.processUserInput(ctx, userId, text, "text");
+    }
+
+    private async handlePhotoMessage(ctx: Context): Promise<void> {
+        const userId = ctx.from?.id;
+        if (!userId) return;
+
+        const message = ctx.message as any;
+        const photo = message?.photo;
+        if (!photo || photo.length === 0) return;
+
+        // Get the largest photo
+        const largestPhoto = photo[photo.length - 1];
+        const fileId = largestPhoto.file_id;
+
+        try {
+            logger.info("Image received", { userId, fileId });
+
+            // Download and save image
+            const fileLink = await ctx.telegram.getFileLink(fileId);
+            const response = await fetch(fileLink.href);
+            const buffer = await response.buffer();
+
+            const imagePath = path.join(config.tempDir, `${fileId}.jpg`);
+            writeFileSync(imagePath, buffer);
+
+            // Store image path for this user
+            this.pendingImages.set(userId, imagePath);
+
+            // Show selection buttons
+            const keyboard = {
+                inline_keyboard: [
+                    [
+                        {
+                            text: "🌱 Maturity Detection",
+                            callback_data: "ml_maturity",
+                        },
+                    ],
+                    [
+                        {
+                            text: "🔬 Disease Classification",
+                            callback_data: "ml_disease",
+                        },
+                    ],
+                ],
+            };
+
+            await ctx.reply("Image received! What would you like to analyze?", {
+                reply_markup: keyboard,
+            });
+
+            logger.info("Image stored, awaiting user selection", { userId });
+        } catch (error) {
+            console.error("Image download error:", error);
+
+            logger.error("Image download failed", {
+                userId,
+                error: error instanceof Error ? error.message : "Unknown error",
+            });
+
+            sentryService.captureException(error, {
+                tags: {
+                    error_type: "image_download_error",
+                    user_id: String(userId),
+                },
+                level: "error",
+            });
+
+            await ctx.reply("Failed to process your image. Please try again.");
+        }
+    }
+
+    private async handleMaturityDetection(ctx: Context): Promise<void> {
+        const userId = ctx.from?.id;
+        if (!userId) return;
+
+        await ctx.answerCbQuery();
+
+        const imagePath = this.pendingImages.get(userId);
+        if (!imagePath) {
+            await ctx.reply("Image not found. Please upload a new image.");
+            return;
+        }
+
+        const processingMessage = await ctx.reply(
+            "Analyzing maturity stages..."
+        );
+
+        try {
+            logger.info("Running maturity detection", { userId });
+
+            const detectionResult = await yoloService.detectObjects(imagePath);
+
+            await ctx.deleteMessage(processingMessage.message_id);
+
+            let detectionText = "Maturity Detection Results:\n\n";
+            detectionText += `Found ${detectionResult.detections.length} object(s):\n\n`;
+
+            if (detectionResult.detections.length > 0) {
+                detectionResult.detections.forEach((det, idx) => {
+                    detectionText += `${idx + 1}. ${det.className}\n`;
+                    detectionText += `   Confidence: ${(det.confidence * 100).toFixed(2)}%\n`;
+                    detectionText += `   Location: (${det.bbox.x}, ${det.bbox.y})\n`;
+                    detectionText += `   Size: ${det.bbox.width}x${det.bbox.height}px\n\n`;
+                });
+
+                await ctx.replyWithPhoto(
+                    {
+                        source: createReadStream(
+                            detectionResult.annotatedImagePath
+                        ),
+                    },
+                    { caption: detectionText }
+                );
+            } else {
+                await ctx.reply(
+                    detectionText + "No maturity stages detected in the image."
+                );
+            }
+
+            cleanupFiles([imagePath, detectionResult.annotatedImagePath]);
+            this.pendingImages.delete(userId);
+
+            logger.info("Maturity detection completed", {
+                userId,
+                detectionsCount: detectionResult.detections.length,
+            });
+        } catch (error) {
+            console.error("Maturity detection error:", error);
+
+            logger.error("Maturity detection failed", {
+                userId,
+                error: error instanceof Error ? error.message : "Unknown error",
+            });
+
+            sentryService.captureException(error, {
+                tags: {
+                    error_type: "maturity_detection_error",
+                    user_id: String(userId),
+                },
+                level: "error",
+            });
+
+            try {
+                await ctx.deleteMessage(processingMessage.message_id);
+            } catch (deleteErr) {
+                console.error(
+                    "Failed to delete processing message:",
+                    deleteErr
+                );
+            }
+
+            await ctx.reply("Failed to analyze maturity. Please try again.");
+        }
+    }
+
+    private async handleDiseaseClassification(ctx: Context): Promise<void> {
+        const userId = ctx.from?.id;
+        if (!userId) return;
+
+        await ctx.answerCbQuery();
+
+        const imagePath = this.pendingImages.get(userId);
+        if (!imagePath) {
+            await ctx.reply("Image not found. Please upload a new image.");
+            return;
+        }
+
+        const processingMessage = await ctx.reply("Classifying disease...");
+
+        try {
+            logger.info("Running disease classification", { userId });
+
+            const classificationResult =
+                await yoloService.classifyImage(imagePath);
+
+            await ctx.deleteMessage(processingMessage.message_id);
+
+            let classificationText = "Disease Classification Results:\n\n";
+            classificationText += `Top Prediction: ${classificationResult.className}\n`;
+            classificationText += `Confidence: ${(classificationResult.confidence * 100).toFixed(2)}%\n\n`;
+            classificationText += "All Predictions:\n";
+            classificationResult.allPredictions.slice(0, 5).forEach((pred) => {
+                classificationText += `- ${pred.className}: ${(pred.confidence * 100).toFixed(2)}%\n`;
+            });
+
+            await ctx.reply(classificationText);
+
+            cleanupFiles([imagePath]);
+            this.pendingImages.delete(userId);
+
+            logger.info("Disease classification completed", {
+                userId,
+                classification: classificationResult.className,
+            });
+        } catch (error) {
+            console.error("Disease classification error:", error);
+
+            logger.error("Disease classification failed", {
+                userId,
+                error: error instanceof Error ? error.message : "Unknown error",
+            });
+
+            sentryService.captureException(error, {
+                tags: {
+                    error_type: "disease_classification_error",
+                    user_id: String(userId),
+                },
+                level: "error",
+            });
+
+            try {
+                await ctx.deleteMessage(processingMessage.message_id);
+            } catch (deleteErr) {
+                console.error(
+                    "Failed to delete processing message:",
+                    deleteErr
+                );
+            }
+
+            await ctx.reply("Failed to classify disease. Please try again.");
+        }
     }
 
     private async handleVoiceMessage(ctx: Context): Promise<void> {
