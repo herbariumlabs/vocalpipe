@@ -10,6 +10,7 @@ Advanced multilingual voice and text AI bot with dual language support and RAG (
 - 🌐 **Dual Language Selection**: Choose both input and output languages independently
 - 🤖 **AI-Powered**: Uses GPT-4o-mini for intelligent responses
 - 📚 **RAG System**: Search local documents first, then fallback to general knowledge
+- 🖼️ **Image Analysis**: YOLOv8 models for oyster mushroom disease classification and stage detection
 - 🔄 **Real-time Translation**: Seamless translation between Hindi and English
 - 📱 **Telegram Integration**: Easy-to-use Telegram bot interface
 - 📊 **Analytics**: Comprehensive PostHog analytics for user tracking and bot performance
@@ -48,6 +49,7 @@ datasets/
 ### Prerequisites
 
 - Node.js 18+
+- Python 3.8+ (for ML models)
 - FFmpeg installed on your system
 - Telegram Bot Token
 - OpenAI API Key
@@ -59,8 +61,11 @@ datasets/
 git clone <repository-url>
 cd vocalpipe
 
-# Install dependencies
+# Install Node.js dependencies
 npm install
+
+# Install Python dependencies (for ML models)
+pip3 install -r requirements.txt
 
 # Copy environment file
 cp .env.example .env
@@ -134,6 +139,16 @@ npm run test:watch
 - `/start` - Initialize the bot and see welcome message with RAG stats
 - `/change_language` - Open language settings menu
 - `/rag_stats` - View knowledge base statistics
+
+## Image Analysis
+
+Send any image of oyster mushrooms to get:
+
+- **Disease Classification**: Identifies diseases with confidence scores
+- **Stage Detection**: Detects growth stages with bounding boxes
+- **Annotated Image**: Visual representation of detected stages
+
+Powered by YOLOv8 models trained specifically for oyster mushroom analysis.
 
 ## Adding Documents to RAG
 
